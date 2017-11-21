@@ -1,0 +1,418 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4B70BB581FC4496A00E220D3 /* AirConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB391FC4496A00E220D3 /* AirConnection.cpp */; };
+		4B70BB591FC4496A00E220D3 /* AirConnectionObserverCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB3D1FC4496A00E220D3 /* AirConnectionObserverCenter.cpp */; };
+		4B70BB5A1FC4496A00E220D3 /* AirConnectionPackageIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB3F1FC4496A00E220D3 /* AirConnectionPackageIO.cpp */; };
+		4B70BB5B1FC4496A00E220D3 /* AirListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB411FC4496A00E220D3 /* AirListener.cpp */; };
+		4B70BB5C1FC4496A00E220D3 /* AirPackage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB431FC4496A00E220D3 /* AirPackage.cpp */; };
+		4B70BB5D1FC4496A00E220D3 /* AirServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB451FC4496A00E220D3 /* AirServer.cpp */; };
+		4B70BB5E1FC4496A00E220D3 /* AirSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB471FC4496A00E220D3 /* AirSession.cpp */; };
+		4B70BB5F1FC4496A00E220D3 /* AirSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB491FC4496A00E220D3 /* AirSocket.cpp */; };
+		4B70BB601FC4496A00E220D3 /* AirQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB501FC4496A00E220D3 /* AirQueue.cpp */; };
+		4B70BB611FC4496A00E220D3 /* AirThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB521FC4496A00E220D3 /* AirThread.cpp */; };
+		4B70BB621FC4496A00E220D3 /* AirThreadLock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB541FC4496A00E220D3 /* AirThreadLock.cpp */; };
+		4B70BB631FC4496A00E220D3 /* AirThreadPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB561FC4496A00E220D3 /* AirThreadPool.cpp */; };
+		4B70BB641FC44B0700E220D3 /* AirConnection.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3A1FC4496A00E220D3 /* AirConnection.h */; };
+		4B70BB651FC44B0700E220D3 /* AirConnectionIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3B1FC4496A00E220D3 /* AirConnectionIO.h */; };
+		4B70BB661FC44B0700E220D3 /* AirConnectionObserver.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */; };
+		4B70BB671FC44B0700E220D3 /* AirConnectionObserverCenter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3E1FC4496A00E220D3 /* AirConnectionObserverCenter.h */; };
+		4B70BB681FC44B0700E220D3 /* AirConnectionPackageIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB401FC4496A00E220D3 /* AirConnectionPackageIO.h */; };
+		4B70BB691FC44B0700E220D3 /* AirListener.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB421FC4496A00E220D3 /* AirListener.h */; };
+		4B70BB6A1FC44B0700E220D3 /* AirPackage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB441FC4496A00E220D3 /* AirPackage.h */; };
+		4B70BB6B1FC44B0700E220D3 /* AirServer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB461FC4496A00E220D3 /* AirServer.h */; };
+		4B70BB6C1FC44B0700E220D3 /* AirSession.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB481FC4496A00E220D3 /* AirSession.h */; };
+		4B70BB6D1FC44B0700E220D3 /* AirSocket.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB4A1FC4496A00E220D3 /* AirSocket.h */; };
+		4B70BB6E1FC44B0700E220D3 /* AirSocketConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB4B1FC4496A00E220D3 /* AirSocketConfig.h */; };
+		4B70BB6F1FC44B0700E220D3 /* AirStreamConnection.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB4C1FC4496A00E220D3 /* AirStreamConnection.h */; };
+		4B70BB781FC44B6400E220D3 /* AirOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB4F1FC4496A00E220D3 /* AirOperation.h */; };
+		4B70BB791FC44B6400E220D3 /* AirQueue.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB511FC4496A00E220D3 /* AirQueue.h */; };
+		4B70BB7A1FC44B6400E220D3 /* AirThread.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB531FC4496A00E220D3 /* AirThread.h */; };
+		4B70BB7B1FC44B6400E220D3 /* AirThreadLock.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB551FC4496A00E220D3 /* AirThreadLock.h */; };
+		4B70BB7C1FC44B6400E220D3 /* AirThreadPool.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB571FC4496A00E220D3 /* AirThreadPool.h */; };
+		4B70BB7E1FC44C5200E220D3 /* AirOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB7D1FC44C5200E220D3 /* AirOperation.cpp */; };
+		4B70BB831FC44FF200E220D3 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */; };
+		4BF9D5E21FB401C300350B97 /* AirSocket.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9D5E11FB401C300350B97 /* AirSocket.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4B70BB761FC44B3100E220D3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)/Thread";
+			dstSubfolderSpec = 16;
+			files = (
+				4B70BB781FC44B6400E220D3 /* AirOperation.h in CopyFiles */,
+				4B70BB791FC44B6400E220D3 /* AirQueue.h in CopyFiles */,
+				4B70BB7A1FC44B6400E220D3 /* AirThread.h in CopyFiles */,
+				4B70BB7B1FC44B6400E220D3 /* AirThreadLock.h in CopyFiles */,
+				4B70BB7C1FC44B6400E220D3 /* AirThreadPool.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BF9D5DB1FB401C300350B97 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				4B70BB641FC44B0700E220D3 /* AirConnection.h in CopyFiles */,
+				4B70BB651FC44B0700E220D3 /* AirConnectionIO.h in CopyFiles */,
+				4B70BB661FC44B0700E220D3 /* AirConnectionObserver.h in CopyFiles */,
+				4B70BB671FC44B0700E220D3 /* AirConnectionObserverCenter.h in CopyFiles */,
+				4B70BB681FC44B0700E220D3 /* AirConnectionPackageIO.h in CopyFiles */,
+				4B70BB691FC44B0700E220D3 /* AirListener.h in CopyFiles */,
+				4B70BB6A1FC44B0700E220D3 /* AirPackage.h in CopyFiles */,
+				4B70BB6B1FC44B0700E220D3 /* AirServer.h in CopyFiles */,
+				4B70BB6C1FC44B0700E220D3 /* AirSession.h in CopyFiles */,
+				4B70BB6D1FC44B0700E220D3 /* AirSocket.h in CopyFiles */,
+				4B70BB6E1FC44B0700E220D3 /* AirSocketConfig.h in CopyFiles */,
+				4B70BB6F1FC44B0700E220D3 /* AirStreamConnection.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4B70BB391FC4496A00E220D3 /* AirConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnection.cpp; sourceTree = "<group>"; };
+		4B70BB3A1FC4496A00E220D3 /* AirConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnection.h; sourceTree = "<group>"; };
+		4B70BB3B1FC4496A00E220D3 /* AirConnectionIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionIO.h; sourceTree = "<group>"; };
+		4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionObserver.h; sourceTree = "<group>"; };
+		4B70BB3D1FC4496A00E220D3 /* AirConnectionObserverCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnectionObserverCenter.cpp; sourceTree = "<group>"; };
+		4B70BB3E1FC4496A00E220D3 /* AirConnectionObserverCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionObserverCenter.h; sourceTree = "<group>"; };
+		4B70BB3F1FC4496A00E220D3 /* AirConnectionPackageIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnectionPackageIO.cpp; sourceTree = "<group>"; };
+		4B70BB401FC4496A00E220D3 /* AirConnectionPackageIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionPackageIO.h; sourceTree = "<group>"; };
+		4B70BB411FC4496A00E220D3 /* AirListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirListener.cpp; sourceTree = "<group>"; };
+		4B70BB421FC4496A00E220D3 /* AirListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirListener.h; sourceTree = "<group>"; };
+		4B70BB431FC4496A00E220D3 /* AirPackage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirPackage.cpp; sourceTree = "<group>"; };
+		4B70BB441FC4496A00E220D3 /* AirPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirPackage.h; sourceTree = "<group>"; };
+		4B70BB451FC4496A00E220D3 /* AirServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirServer.cpp; sourceTree = "<group>"; };
+		4B70BB461FC4496A00E220D3 /* AirServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirServer.h; sourceTree = "<group>"; };
+		4B70BB471FC4496A00E220D3 /* AirSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirSession.cpp; sourceTree = "<group>"; };
+		4B70BB481FC4496A00E220D3 /* AirSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirSession.h; sourceTree = "<group>"; };
+		4B70BB491FC4496A00E220D3 /* AirSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirSocket.cpp; sourceTree = "<group>"; };
+		4B70BB4A1FC4496A00E220D3 /* AirSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirSocket.h; sourceTree = "<group>"; };
+		4B70BB4B1FC4496A00E220D3 /* AirSocketConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirSocketConfig.h; sourceTree = "<group>"; };
+		4B70BB4C1FC4496A00E220D3 /* AirStreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirStreamConnection.h; sourceTree = "<group>"; };
+		4B70BB4F1FC4496A00E220D3 /* AirOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirOperation.h; sourceTree = "<group>"; };
+		4B70BB501FC4496A00E220D3 /* AirQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirQueue.cpp; sourceTree = "<group>"; };
+		4B70BB511FC4496A00E220D3 /* AirQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirQueue.h; sourceTree = "<group>"; };
+		4B70BB521FC4496A00E220D3 /* AirThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirThread.cpp; sourceTree = "<group>"; };
+		4B70BB531FC4496A00E220D3 /* AirThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirThread.h; sourceTree = "<group>"; };
+		4B70BB541FC4496A00E220D3 /* AirThreadLock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirThreadLock.cpp; sourceTree = "<group>"; };
+		4B70BB551FC4496A00E220D3 /* AirThreadLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirThreadLock.h; sourceTree = "<group>"; };
+		4B70BB561FC4496A00E220D3 /* AirThreadPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirThreadPool.cpp; sourceTree = "<group>"; };
+		4B70BB571FC4496A00E220D3 /* AirThreadPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirThreadPool.h; sourceTree = "<group>"; };
+		4B70BB7D1FC44C5200E220D3 /* AirOperation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AirOperation.cpp; sourceTree = "<group>"; };
+		4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		4B70BB821FC44FF200E220D3 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		4BF9D5DD1FB401C300350B97 /* libAirSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAirSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BF9D5E01FB401C300350B97 /* AirSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirSocket.h; sourceTree = "<group>"; };
+		4BF9D5E11FB401C300350B97 /* AirSocket.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AirSocket.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4BF9D5DA1FB401C300350B97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4B70BB381FC4496A00E220D3 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */,
+				4B70BB821FC44FF200E220D3 /* TPCircularBuffer.h */,
+				4B70BB391FC4496A00E220D3 /* AirConnection.cpp */,
+				4B70BB3A1FC4496A00E220D3 /* AirConnection.h */,
+				4B70BB3B1FC4496A00E220D3 /* AirConnectionIO.h */,
+				4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */,
+				4B70BB3D1FC4496A00E220D3 /* AirConnectionObserverCenter.cpp */,
+				4B70BB3E1FC4496A00E220D3 /* AirConnectionObserverCenter.h */,
+				4B70BB3F1FC4496A00E220D3 /* AirConnectionPackageIO.cpp */,
+				4B70BB401FC4496A00E220D3 /* AirConnectionPackageIO.h */,
+				4B70BB411FC4496A00E220D3 /* AirListener.cpp */,
+				4B70BB421FC4496A00E220D3 /* AirListener.h */,
+				4B70BB431FC4496A00E220D3 /* AirPackage.cpp */,
+				4B70BB441FC4496A00E220D3 /* AirPackage.h */,
+				4B70BB451FC4496A00E220D3 /* AirServer.cpp */,
+				4B70BB461FC4496A00E220D3 /* AirServer.h */,
+				4B70BB471FC4496A00E220D3 /* AirSession.cpp */,
+				4B70BB481FC4496A00E220D3 /* AirSession.h */,
+				4B70BB491FC4496A00E220D3 /* AirSocket.cpp */,
+				4B70BB4A1FC4496A00E220D3 /* AirSocket.h */,
+				4B70BB4B1FC4496A00E220D3 /* AirSocketConfig.h */,
+				4B70BB4C1FC4496A00E220D3 /* AirStreamConnection.h */,
+				4B70BB4D1FC4496A00E220D3 /* Thread */,
+			);
+			path = Socket;
+			sourceTree = "<group>";
+		};
+		4B70BB4D1FC4496A00E220D3 /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				4B70BB7D1FC44C5200E220D3 /* AirOperation.cpp */,
+				4B70BB4F1FC4496A00E220D3 /* AirOperation.h */,
+				4B70BB501FC4496A00E220D3 /* AirQueue.cpp */,
+				4B70BB511FC4496A00E220D3 /* AirQueue.h */,
+				4B70BB521FC4496A00E220D3 /* AirThread.cpp */,
+				4B70BB531FC4496A00E220D3 /* AirThread.h */,
+				4B70BB541FC4496A00E220D3 /* AirThreadLock.cpp */,
+				4B70BB551FC4496A00E220D3 /* AirThreadLock.h */,
+				4B70BB561FC4496A00E220D3 /* AirThreadPool.cpp */,
+				4B70BB571FC4496A00E220D3 /* AirThreadPool.h */,
+			);
+			path = Thread;
+			sourceTree = "<group>";
+		};
+		4BF9D5D41FB401C300350B97 = {
+			isa = PBXGroup;
+			children = (
+				4BF9D5DF1FB401C300350B97 /* AirSocket */,
+				4BF9D5DE1FB401C300350B97 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4BF9D5DE1FB401C300350B97 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4BF9D5DD1FB401C300350B97 /* libAirSocket.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4BF9D5DF1FB401C300350B97 /* AirSocket */ = {
+			isa = PBXGroup;
+			children = (
+				4B70BB381FC4496A00E220D3 /* Socket */,
+				4BF9D5E01FB401C300350B97 /* AirSocket.h */,
+				4BF9D5E11FB401C300350B97 /* AirSocket.mm */,
+			);
+			path = AirSocket;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4BF9D5DC1FB401C300350B97 /* AirSocket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BF9D5E61FB401C300350B97 /* Build configuration list for PBXNativeTarget "AirSocket" */;
+			buildPhases = (
+				4BF9D5D91FB401C300350B97 /* Sources */,
+				4BF9D5DA1FB401C300350B97 /* Frameworks */,
+				4BF9D5DB1FB401C300350B97 /* CopyFiles */,
+				4B70BB761FC44B3100E220D3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirSocket;
+			productName = AirSocket;
+			productReference = 4BF9D5DD1FB401C300350B97 /* libAirSocket.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4BF9D5D51FB401C300350B97 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "peng hao";
+				TargetAttributes = {
+					4BF9D5DC1FB401C300350B97 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 3FQZ84DGYW;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 4BF9D5D81FB401C300350B97 /* Build configuration list for PBXProject "AirSocket" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4BF9D5D41FB401C300350B97;
+			productRefGroup = 4BF9D5DE1FB401C300350B97 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4BF9D5DC1FB401C300350B97 /* AirSocket */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4BF9D5D91FB401C300350B97 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B70BB7E1FC44C5200E220D3 /* AirOperation.cpp in Sources */,
+				4B70BB601FC4496A00E220D3 /* AirQueue.cpp in Sources */,
+				4B70BB5B1FC4496A00E220D3 /* AirListener.cpp in Sources */,
+				4B70BB831FC44FF200E220D3 /* TPCircularBuffer.c in Sources */,
+				4B70BB611FC4496A00E220D3 /* AirThread.cpp in Sources */,
+				4B70BB591FC4496A00E220D3 /* AirConnectionObserverCenter.cpp in Sources */,
+				4B70BB581FC4496A00E220D3 /* AirConnection.cpp in Sources */,
+				4B70BB631FC4496A00E220D3 /* AirThreadPool.cpp in Sources */,
+				4B70BB5C1FC4496A00E220D3 /* AirPackage.cpp in Sources */,
+				4B70BB5F1FC4496A00E220D3 /* AirSocket.cpp in Sources */,
+				4BF9D5E21FB401C300350B97 /* AirSocket.mm in Sources */,
+				4B70BB5D1FC4496A00E220D3 /* AirServer.cpp in Sources */,
+				4B70BB5A1FC4496A00E220D3 /* AirConnectionPackageIO.cpp in Sources */,
+				4B70BB5E1FC4496A00E220D3 /* AirSession.cpp in Sources */,
+				4B70BB621FC4496A00E220D3 /* AirThreadLock.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4BF9D5E41FB401C300350B97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4BF9D5E51FB401C300350B97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4BF9D5E71FB401C300350B97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 3FQZ84DGYW;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4BF9D5E81FB401C300350B97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 3FQZ84DGYW;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4BF9D5D81FB401C300350B97 /* Build configuration list for PBXProject "AirSocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BF9D5E41FB401C300350B97 /* Debug */,
+				4BF9D5E51FB401C300350B97 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4BF9D5E61FB401C300350B97 /* Build configuration list for PBXNativeTarget "AirSocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BF9D5E71FB401C300350B97 /* Debug */,
+				4BF9D5E81FB401C300350B97 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4BF9D5D51FB401C300350B97 /* Project object */;
+}

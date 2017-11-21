@@ -1,32 +1,18 @@
-# Prerequisites
-*.d
+.DS_Store
+.hgignore
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+build/*
+.hg/*
+docs/*
+.svn/
+Pods/*
+.idea/*
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+xcuserdata/
+*.xccheckout
