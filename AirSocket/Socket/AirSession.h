@@ -21,8 +21,9 @@ namespace AirCpp {
     class SessionObserver {
     public:
         virtual void onReadable(Session *) = 0;
-        virtual void onTimeOut(Session *) = 0;
+        virtual void onTimeOut(Session *pSession, bool *pNeedDisConnect) = 0;
         virtual void onHandleNewSession(Session *) = 0;
+        virtual ~SessionObserver(){};
     };
     
     class Session {
@@ -43,25 +44,28 @@ namespace AirCpp {
         
         Connection* getConnection();
         
-        
         void setConnectionIO(ConnectionIO *pConnectionIO);
         
         bool send(const Package *package);
         
         void read(ReseivePackageHandler reseiveHandler);
         
+        ~Session() {
+            delete m_pConnection;
+            delete m_pSessionObserver;
+            delete m_pConnectionIO;
+        }
     };
     
-    
+    class ConnectionObserver;
+    class Connection;
     class SessionManager : public ConnectionObserver{
+        friend Server;
     private:
         ConnectionObserverCenter *m_pConnectionOberverCenter;
         std::map<int, Session *> m_mapSessionMap;
     protected:
         SessionManager();
-    public:
-        static SessionManager *_defaultSessionManager;
-        static SessionManager *defaultSessionManager();
         
         void onReadable(const Connection *pConnection);
         
@@ -70,7 +74,12 @@ namespace AirCpp {
         Session *getSession(const Connection *pConnection);
         
         Session *create(Connection *pConnection, SessionObserver *pSessionObserver);
+    public:
+        static SessionManager *_defaultSessionManager;
+        static SessionManager *defaultSessionManager();
         
+        
+        ~SessionManager();
     };
 }
 

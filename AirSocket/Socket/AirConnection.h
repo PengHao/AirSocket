@@ -31,7 +31,6 @@ namespace AirCpp{
         int m_iDataType;
         int m_iProtocol;
         
-        char m_strTempBuffer[TEMP_BUFFER_SIZE];
     protected:
         
         Connection(int domainType, int dataType, int protocol);

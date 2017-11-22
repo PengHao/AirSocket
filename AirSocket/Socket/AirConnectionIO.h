@@ -19,6 +19,7 @@ namespace AirCpp {
     public:
         virtual bool send(const Package *package) = 0;
         virtual void read(ReseivePackageHandler reseiveHandler) = 0;
+        virtual ~ConnectionIO(){};
     };
 }
 #endif /* AirConnectionIO_h */

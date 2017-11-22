@@ -26,9 +26,9 @@ namespace AirCpp {
         Thread::excute_async(m_pThread, [&] {
             select();
         });
-        mTimeout.tv_sec = 1;
+        mTimeout.tv_sec = 10;
         mTimeout.tv_usec = 0;
-        mDefaultTimeOut.tv_sec = 1;
+        mDefaultTimeOut.tv_sec = 10;
         mDefaultTimeOut.tv_usec = 0;
     }
     
@@ -39,8 +39,6 @@ namespace AirCpp {
         m_mapConnectionObservers[connection->m_pSocket->m_iSocketHandle] = element;
         return true;
     }
-    
-    
     
     void ConnectionObserverCenter::resetTimeOut() {
         m_ListWillTimeoutConnections.clear();

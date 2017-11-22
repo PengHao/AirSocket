@@ -47,7 +47,6 @@ namespace AirCpp {
                 memcpy(pOffset, data, unsetDataSize);
                 pCurrentPackage->m_ullSettedSize += unsetDataSize;
                 handleFilledPackage(pCurrentPackage);
-                printf("FillData : %llu \r\n", pCurrentPackage->m_ullSize);
                 len -= unsetDataSize;
                 pDataOffset += unsetDataSize;
                 delete pCurrentPackage;

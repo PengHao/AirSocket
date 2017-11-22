@@ -76,7 +76,9 @@ namespace AirCpp {
     }
     
     Package::~Package() {
-        free(m_pData);
+        if (m_pData) {
+            free(m_pData);
+        }
         m_pData = nullptr;
         m_ullSize = 0;
     }
