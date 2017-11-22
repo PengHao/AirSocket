@@ -14,11 +14,11 @@
 #include "AirConnection.h"
 #include "AirPackage.h"
 namespace AirCpp {
-    typedef std::function< void (const Package * , const Connection *)> ReseivePackageHandler;
+    typedef std::function< void (const DataFormat *)> ReseivePackageHandler;
     class ConnectionIO {
     public:
-        virtual bool send(const Package *package) = 0;
-        virtual void read(ReseivePackageHandler reseiveHandler) = 0;
+        virtual bool send(const DataFormat *package, Connection *pConnection) = 0;
+        virtual bool read(ReseivePackageHandler reseiveHandler, Connection *pConnection) = 0;
         virtual ~ConnectionIO(){};
     };
 }

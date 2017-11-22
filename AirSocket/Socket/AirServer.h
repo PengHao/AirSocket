@@ -15,11 +15,9 @@
 #include "AirListener.h"
 #include "Thread/AirThread.h"
 #include "Thread/AirOperation.h"
-#include "AirConnectionObserverCenter.h"
-#include "AirSession.h"
+#include "AirSessionManager.h"
 
 namespace AirCpp {
-    
     class Server {
     protected:
         Listener *_pListener;
@@ -27,15 +25,15 @@ namespace AirCpp {
         unsigned short m_uiPort;
         unsigned int m_uiBackLog;
         std::map<int, Connection *> m_mapConnections;
+        SessionManager *m_pSessionManager;
+        
         fd_set m_ConnSet;
-        ConnectionObserverCenter *m_pConnectionObserverCenter;
-        SessionObserver *m_pSessionObserver;
         ~Server();
         
         void startListen();
         Server(unsigned short usPort, unsigned int uiBacklog);
     public:
-        static Server *Create(unsigned short usPort, unsigned int uiBacklog, SessionObserver *pSessionObserver);
+        static Server *Create(unsigned short usPort, unsigned int uiBacklog, SessionManager *pSessionManager);
         
         void run();
     };

@@ -21,12 +21,14 @@ namespace AirCpp {
     class SessionObserver {
     public:
         virtual void onReadable(Session *) = 0;
-        virtual void onTimeOut(Session *pSession, bool *pNeedDisConnect) = 0;
+        virtual void onTimeOut(Session *) = 0;
         virtual void onHandleNewSession(Session *) = 0;
+        virtual void onSendFaild(Session *) = 0;
+        virtual void onReadFaild(Session *) = 0;
         virtual ~SessionObserver(){};
     };
     
-    class Session {
+    class Session : public ConnectionObserver{
         friend SessionManager;
     protected:
         long long m_llUid;
@@ -34,21 +36,26 @@ namespace AirCpp {
         SessionObserver *m_pSessionObserver;
         ConnectionIO *m_pConnectionIO;
         
-    public:
-        void setUid(long long uid);
+        void onReadable(const Connection *);
         
-        Session(Connection *pConnection, SessionObserver *pSessionObserver);
+        void onTimeOut(const Connection *);
+        
+        void onSendFaild(const Connection *);
+        
+        void onReadFaild(const Connection *);
         
     public:
         long long getUid();
         
-        Connection* getConnection();
+        void setUid(long long uid);
+        
+        Session(Connection *pConnection, SessionObserver *pSessionObserver);
         
         void setConnectionIO(ConnectionIO *pConnectionIO);
         
-        bool send(const Package *package);
+        bool send(const DataFormat *package);
         
-        void read(ReseivePackageHandler reseiveHandler);
+        bool read(ReseivePackageHandler reseiveHandler);
         
         ~Session() {
             delete m_pConnection;
@@ -57,30 +64,6 @@ namespace AirCpp {
         }
     };
     
-    class ConnectionObserver;
-    class Connection;
-    class SessionManager : public ConnectionObserver{
-        friend Server;
-    private:
-        ConnectionObserverCenter *m_pConnectionOberverCenter;
-        std::map<int, Session *> m_mapSessionMap;
-    protected:
-        SessionManager();
-        
-        void onReadable(const Connection *pConnection);
-        
-        void onTimeOut(const Connection *pConnection);
-        
-        Session *getSession(const Connection *pConnection);
-        
-        Session *create(Connection *pConnection, SessionObserver *pSessionObserver);
-    public:
-        static SessionManager *_defaultSessionManager;
-        static SessionManager *defaultSessionManager();
-        
-        
-        ~SessionManager();
-    };
 }
 
 #endif /* AirSession_h */

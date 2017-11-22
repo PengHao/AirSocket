@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include "AirConnection.h"
-
+#include "AirConnectionObserver.h"
 namespace AirCpp {
     
     Connection::~Connection() {
@@ -55,11 +55,27 @@ namespace AirCpp {
         return m_pSocket->m_iSocketHandle;
     }
     
+    void Connection::onTimeOut() {
+        m_pConnectionObserver->onTimeOut(this);
+    }
+    
+    void Connection::onReadable() {
+        m_pConnectionObserver->onReadable(this);
+    }
+    
     long long Connection::read(char *c_data, long long length) const {
-        return m_pSocket->read(c_data, length);
+        long long rs = m_pSocket->read(c_data, length);
+        if (rs < 0) {
+            m_pConnectionObserver->onReadFaild(this);
+        }
+        return rs;
     }
     
     long long Connection::send(const char *c_data, long long length) const {
-        return m_pSocket->send(c_data, length);
+        long long rs = m_pSocket->send(c_data, length);
+        if (rs < 0) {
+            m_pConnectionObserver->onSendFaild(this);
+        }
+        return rs;
     }
 }

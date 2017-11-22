@@ -45,6 +45,7 @@ namespace AirCpp{
             if (t < 0) { /* get a connection */
                 if (errno == EINTR)             /* EINTR might happen on accept(), */
                 {
+                    sleep(1.0);
                     continue;                   /* try again */
                 }
                 else

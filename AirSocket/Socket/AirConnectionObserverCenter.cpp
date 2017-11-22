@@ -32,11 +32,8 @@ namespace AirCpp {
         mDefaultTimeOut.tv_usec = 0;
     }
     
-    bool ConnectionObserverCenter::addObserver(Connection *connection, ConnectionObserver *connectionObserver) {
-        Element element;
-        element.m_pConnection = connection;
-        element.m_pConnectionObserver = connectionObserver;
-        m_mapConnectionObservers[connection->m_pSocket->m_iSocketHandle] = element;
+    bool ConnectionObserverCenter::addObserver(Connection *pConnection) {
+        m_mapConnectionObservers[pConnection->m_pSocket->m_iSocketHandle] = pConnection;
         return true;
     }
     
@@ -50,7 +47,7 @@ namespace AirCpp {
     
     void ConnectionObserverCenter::onTimeOut() {
         for (const auto &e : m_ListWillTimeoutConnections) {
-            m_mapConnectionObservers[e].m_pConnectionObserver->onTimeOut(m_mapConnectionObservers[e].m_pConnection);
+            m_mapConnectionObservers[e]->onTimeOut();
         }
     }
     
@@ -62,7 +59,7 @@ namespace AirCpp {
         for(const auto& kvp : m_mapConnectionObservers) {
             if(FD_ISSET(kvp.first, &m_ConnSet)) {
                 try {
-                    kvp.second.m_pConnectionObserver->onReadable(kvp.second.m_pConnection);
+                    kvp.second->onReadable();
                 } catch (std::exception &e) {
                     
                 }
@@ -80,7 +77,7 @@ namespace AirCpp {
             FD_ZERO(&m_ConnSet);
             int max = 0;
             for(const auto& kvp : m_mapConnectionObservers) {
-                if (kvp.second.m_pConnection != nullptr) {
+                if (kvp.second != nullptr) {
                     FD_SET(kvp.first, &m_ConnSet);
                     max = std::max(kvp.first, max);
                 }

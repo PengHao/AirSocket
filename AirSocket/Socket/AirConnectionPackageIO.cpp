@@ -9,8 +9,7 @@
 #include <stdio.h>
 #include "AirConnectionPackageIO.h"
 namespace AirCpp {
-    ConnectionPackageIO::ConnectionPackageIO(Connection *pConnection) :
-    m_pConnection(pConnection),
+    ConnectionPackageIO::ConnectionPackageIO() :
     pCurrentPackage(nullptr){
     }
     
@@ -22,11 +21,11 @@ namespace AirCpp {
         unsigned long long sizeofSize = sizeof(pCurrentPackage->m_ullSize);
         unsigned char *pOffset = (unsigned char *)&pCurrentPackage->m_ullSize;
         char *pDataOffset = data;
-        if (pCurrentPackage->m_ullSettedSize < sizeofSize) {
-            pOffset += pCurrentPackage->m_ullSettedSize;
-            auto s = std::min(sizeofSize - pCurrentPackage->m_ullSettedSize, len);
+        if (pCurrentPackage->m_ullFilledSize < sizeofSize) {
+            pOffset += pCurrentPackage->m_ullFilledSize;
+            auto s = std::min(sizeofSize - pCurrentPackage->m_ullFilledSize, len);
             memcpy(pOffset, pDataOffset, s);
-            pCurrentPackage->m_ullSettedSize += s;
+            pCurrentPackage->m_ullFilledSize += s;
             pDataOffset += s;
             len -= s;
             if (len > 0) {
@@ -40,12 +39,12 @@ namespace AirCpp {
                 pCurrentPackage->m_pData = (unsigned char *)calloc(pCurrentPackage->m_ullSize, sizeof(unsigned char));
             }
             pOffset = pCurrentPackage->m_pData;
-            size_t settedDataSize = pCurrentPackage->m_ullSettedSize - sizeofSize;
+            size_t settedDataSize = pCurrentPackage->m_ullFilledSize - sizeofSize;
             size_t unsetDataSize = pCurrentPackage->m_ullSize - settedDataSize;
             pOffset += settedDataSize;
             if (unsetDataSize <= len) {
                 memcpy(pOffset, data, unsetDataSize);
-                pCurrentPackage->m_ullSettedSize += unsetDataSize;
+                pCurrentPackage->m_ullFilledSize += unsetDataSize;
                 handleFilledPackage(pCurrentPackage);
                 len -= unsetDataSize;
                 pDataOffset += unsetDataSize;
@@ -56,40 +55,37 @@ namespace AirCpp {
                 }
             } else {
                 memcpy(pOffset, data, len);
-                pCurrentPackage->m_ullSettedSize += len;
+                pCurrentPackage->m_ullFilledSize += len;
             }
         }
-    }
-
-    ConnectionPackageIO *ConnectionPackageIO::Create(Connection *pConnection) {
-        ConnectionPackageIO *packageConnection = new ConnectionPackageIO(pConnection);
-        return packageConnection;
     }
     
     ConnectionPackageIO::~ConnectionPackageIO() {
     }
     
-    bool ConnectionPackageIO::send(const Package *package) {
-        long long len = m_pConnection->send((const char *)&package->m_ullSettedSize, sizeof(&package->m_ullSettedSize));
-        if (len == -1) {
-            //socket error
-            return false;
-        } if (len != sizeof(&package->m_ullSettedSize)) {
-            return false;
+    bool ConnectionPackageIO::send(const DataFormat *package, Connection *pConnection) {
+        std::string dataString;
+        if (package->serial(dataString)) {
+            long long len = pConnection->send(dataString.c_str(), dataString.length());
+            if (len == -1) {
+                //socket error
+                return false;
+            }
+            return true;
         }
-        len = m_pConnection->send((const char *)package->m_pData, package->m_ullSettedSize);
-        return len == package->m_ullSettedSize;
+        return false;
     }
     
-    void ConnectionPackageIO::read(ReseivePackageHandler reseiveHandler) {
+    bool ConnectionPackageIO::read(ReseivePackageHandler reseiveHandler, Connection *pConnection) {
         memset(m_strTempBuffer, 0, TEMP_BUFFER_SIZE);
-        long long size = m_pConnection->read(m_strTempBuffer, TEMP_BUFFER_SIZE);
+        long long size = pConnection->read(m_strTempBuffer, TEMP_BUFFER_SIZE);
         if (size <= 0) {
-            return;
+            return false;
         }
         
         fillData(size, m_strTempBuffer, [=](const Package *package){
-            reseiveHandler(package, m_pConnection);
+            reseiveHandler(package);
         });
+        return true;
     }
 }

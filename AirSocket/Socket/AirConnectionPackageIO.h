@@ -26,20 +26,19 @@ namespace AirCpp {
     private:
         typedef std::function<void(const Package *package)> FillPackageCallBack;
         char m_strTempBuffer[TEMP_BUFFER_SIZE];
-        Connection *m_pConnection;
         Package * pCurrentPackage;
         
-        ConnectionPackageIO(Connection *pConnection);
         
         void fillData(unsigned long long len, char *data, FillPackageCallBack handleFilledPackage);
     public:
-        static ConnectionPackageIO *Create(Connection *pConnection);
+        
+        ConnectionPackageIO();
         
         ~ConnectionPackageIO();
         
-        bool send(const Package *package);
+        bool send(const DataFormat *package, Connection *pConnection);
         
-        void read(ReseivePackageHandler reseiveHandler);
+        bool read(ReseivePackageHandler reseiveHandler, Connection *pConnection);
     };
 }
 

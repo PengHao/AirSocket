@@ -16,84 +16,47 @@ namespace AirCpp {
     Session::Session(Connection *pConnection, SessionObserver *pSessionObserver):
     m_pConnection(pConnection),
     m_pSessionObserver(pSessionObserver),
+    m_pConnectionIO(nullptr),
     m_llUid(0)
     {
-        
+        m_pConnection->m_pConnectionObserver = this;
     }
     
     long long Session::getUid() {
         return m_llUid;
     }
     
-    Connection* Session::getConnection() {
-        return m_pConnection;
-    }
-    
     void Session::setConnectionIO(ConnectionIO *pConnectionIO) {
         m_pConnectionIO = pConnectionIO;
     }
     
-    bool Session::send(const Package *package) {
-        return m_pConnectionIO->send(package);
-    }
-    
-    void Session::read(ReseivePackageHandler reseiveHandler) {
-        m_pConnectionIO->read(reseiveHandler);
-    }
-    
-    SessionManager* SessionManager::_defaultSessionManager = nullptr;
-    
-    SessionManager::SessionManager() {
-        m_pConnectionOberverCenter = ConnectionObserverCenter::defaultObserverCenter();
-    }
-    
-    SessionManager::~SessionManager() {
-        for (std::pair<int, Session *> kv : m_mapSessionMap) {
-            delete kv.second;
+    bool Session::send(const DataFormat *package) {
+        if (!m_pConnectionIO) {
+            printf("must set connectionIO when handle Session\r\n");
+            return false;
         }
-        m_pConnectionOberverCenter = nullptr;
+        return m_pConnectionIO->send(package, m_pConnection);
     }
     
-    SessionManager *SessionManager::defaultSessionManager() {
-        if (!_defaultSessionManager) {
-            _defaultSessionManager = new SessionManager();
-        }
-        return _defaultSessionManager;
+    bool Session::read(ReseivePackageHandler reseiveHandler) {
+        return m_pConnectionIO->read(reseiveHandler, m_pConnection);
     }
     
-    void SessionManager::onReadable(const Connection *pConnection) {
-        Session *pSession = getSession(pConnection);
-        if (pSession) {
-            pSession->m_pSessionObserver->onReadable(pSession);
-        }
+    void Session::onReadable(const Connection *pConnection) {
+        m_pSessionObserver->onReadable(this);
     }
     
-    void SessionManager::onTimeOut(const Connection *pConnection) {
-        Session *pSession = getSession(pConnection);
-        if (!pSession) {
-            printf("no session found for connection");
-            return;
-        }
-        
-        bool needDisconnect = false;
-        pSession->m_pSessionObserver->onTimeOut(pSession, &needDisconnect);
-        if (!needDisconnect) {
-            return;
-        }
-        m_mapSessionMap.erase(pConnection->getHandle());
-        delete pSession;
+    void Session::onSendFaild(const Connection *pConnection) {
     }
     
-    Session *SessionManager::getSession(const Connection *pConnection) {
-        return m_mapSessionMap[pConnection->getHandle()];
+    void Session::onReadFaild(const Connection *pConnection) {
     }
     
-    Session *SessionManager::create(Connection *pConnection, SessionObserver *pSessionObserver) {
-        Session *pSession = new Session(pConnection, pSessionObserver);
-        m_pConnectionOberverCenter->addObserver(pConnection, this);
-        m_mapSessionMap[pConnection->getHandle()] = pSession;
-        return pSession;
+    void Session::onTimeOut(const Connection *pConnection) {
+        m_pSessionObserver->onTimeOut(this);
     }
+    
+    
     
 
 }

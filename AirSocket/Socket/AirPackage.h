@@ -32,17 +32,31 @@ namespace AirCpp {
         int32_t write(const char *c_data, int32_t length);
     };
     
+    class DataFormat {
+    public:
+        virtual bool serial(std::string &serilazeString)  const = 0;
+        virtual bool deserial(std::string &serilazeString) = 0;
+        virtual bool getContent(std::string &contentData) const = 0;
+        virtual bool setContent(const std::string &contentData) = 0;
+    };
     
-    class Package {
+    class Package : public DataFormat {
     public:
         unsigned long long m_ullSize;
         unsigned char *m_pData;
-        unsigned long long m_ullSettedSize;
+        unsigned long long m_ullFilledSize;
     public:
         Package();
         
         Package(const std::string &data);
         
+        bool serial(std::string &serilazeString) const;
+        
+        bool deserial(std::string &serilazeString);
+        
+        bool getContent(std::string &contentData) const;
+        
+        bool setContent(const std::string &contentData);
         ~Package();
     };
     

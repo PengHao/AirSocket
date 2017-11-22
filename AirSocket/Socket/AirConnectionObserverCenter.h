@@ -21,14 +21,9 @@
 namespace AirCpp {
     
     class ConnectionObserverCenter {
-        struct Element {
-        public:
-            Connection * m_pConnection;
-            ConnectionObserver *m_pConnectionObserver;
-        };
     protected:
         static ConnectionObserverCenter *_defaultClent;
-        std::map<int, Element> m_mapConnectionObservers;
+        std::map<int, Connection *> m_mapConnectionObservers;
         std::list<int> m_ListWillTimeoutConnections;
         
         struct timeval mTimeout;
@@ -55,7 +50,7 @@ namespace AirCpp {
     public:
         static ConnectionObserverCenter *defaultObserverCenter();
         
-        bool addObserver(Connection *connection, ConnectionObserver *connectionObserver);
+        bool addObserver(Connection *connection);
         
         ~ConnectionObserverCenter() {
             

@@ -19,17 +19,19 @@ namespace AirCpp{
     class ConnectionObserverCenter;
     class Listener;
     class Server;
-    class ConnectionObserverCenter;
-    
+    class ConnectionObserver;
+    class Session;
     class Connection {
         friend Listener;
         friend Server;
+        friend Session;
         friend ConnectionObserverCenter;
     protected:
         Socket *m_pSocket;
         int m_iDomainType;
         int m_iDataType;
         int m_iProtocol;
+        ConnectionObserver *m_pConnectionObserver;
         
     protected:
         
@@ -39,8 +41,16 @@ namespace AirCpp{
         
         int init(const std::string &host, int port);
         
+        void onTimeOut();
+        
+        void onReadable();
+        
     public:
         ~Connection();
+        
+        void setConnectionObserver(ConnectionObserver * pConnectionObserver) {
+            m_pConnectionObserver = pConnectionObserver;
+        }
         
         static Connection * Create(const std::string &host, int port, int domainType = AF_INET, int dataType = SOCK_STREAM, int protocol = IPPROTO_TCP);
         

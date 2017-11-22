@@ -9,9 +9,6 @@
 #include "AirServer.h"
 namespace AirCpp {
     Server::~Server() {
-        m_pConnectionObserverCenter = nullptr;
-        m_pSessionObserver = nullptr;
-        
         if (_pListener) {
             delete _pListener;
         }
@@ -28,9 +25,7 @@ namespace AirCpp {
         if (_pListener->init(m_uiPort, m_uiBackLog) == 0 ) {
             printf("pListener->init \r\n");
             _pListener->startListen([&](Connection *pConnection) {
-                SessionManager *pSessionManager = SessionManager::defaultSessionManager();
-                Session *pSession = pSessionManager->create(pConnection, m_pSessionObserver);
-                m_pSessionObserver->onHandleNewSession(pSession);
+                m_pSessionManager->create(pConnection);
             });
             printf("pListener->startListen \r\n");
         } else {
@@ -46,10 +41,10 @@ namespace AirCpp {
         m_pListenThread = new Thread();
         m_pListenThread->init();
     }
-
-    Server *Server::Create(unsigned short usPort, unsigned int uiBacklog, SessionObserver *pSessionObserver) {
+    
+    Server *Server::Create(unsigned short usPort, unsigned int uiBacklog, SessionManager *pSessionManager) {
         Server *server = new Server(usPort, uiBacklog);
-        server->m_pSessionObserver = pSessionObserver;
+        server->m_pSessionManager = pSessionManager;
         return server;
     }
     
