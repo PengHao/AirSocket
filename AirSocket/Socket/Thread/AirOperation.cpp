@@ -24,6 +24,7 @@ namespace AirCpp{
     
     int Operation::init(std::function<void()> _func)
     {
+        
         serial_func = _func;
         return 0;
     }

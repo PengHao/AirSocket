@@ -8,23 +8,62 @@
 
 #include "AirSessionManager.h"
 namespace AirCpp {
+    SessionManager::SessionManager(SessionObserver *pSessionObserver):
+    m_pSessionObserver(pSessionObserver)
+    {
+        
+    }
     
-    SessionManager::SessionManager() {
-        m_pConnectionOberverCenter = ConnectionObserverCenter::defaultObserverCenter();
+    bool SessionManager::send(Session *pSession, const FormatedData *package) {
+        return pSession->m_pConnection->send(package);
+    }
+    
+    bool SessionManager::read(Session *pSession, ReseivePackageHandler reseiveHandler) {
+        return pSession->m_pConnection->read(reseiveHandler);
+    }
+    
+    void SessionManager::onReadable(const Connection *pConnection) {
+        pConnection->read([&](const FormatedData *data) {
+            
+        });
+    }
+    
+    void SessionManager::onTimeOut(const Connection *pConnection) {
+        m_pSessionObserver->onTimeOut(getSession(pConnection));
+    }
+    
+    void SessionManager::onSendFaild(const Connection *pConnection) {
+        m_pSessionObserver->onSendFaild(getSession(pConnection));
+    }
+    
+    void SessionManager::onReadFaild(const Connection *pConnection) {
+        m_pSessionObserver->onReadFaild(getSession(pConnection));
+    }
+    
+    bool SessionManager::needObserving(const Connection *pConnection) {
+        return m_pSessionObserver->needObserving(getSession(pConnection));
+    }
+    
+    void SessionManager::willBeDestroy(const Connection *pConnection) {
+        
+        
     }
     
     SessionManager::~SessionManager() {
         for (std::pair<int, Session *> kv : m_mapSessionMap) {
             delete kv.second;
         }
-        m_pConnectionOberverCenter = nullptr;
     }
     
-    Session *SessionManager::create(Connection *pConnection) {
-        Session *pSession = new Session(pConnection, this);
-        m_pConnectionOberverCenter->addObserver(pConnection);
+    void SessionManager::destroySession(Session *pSession) {
+        m_mapSessionMap.erase(pSession->m_pConnection->getHandle());
+        delete pSession;
+    }
+    
+    Session *SessionManager::create(const Connection *pConnection) {
+        Session *pSession = new Session(pConnection);
         m_mapSessionMap[pConnection->getHandle()] = pSession;
-        onHandleNewSession(pSession);
+        m_pSessionObserver->onHandleNewSession(pSession);
         return pSession;
     }
     

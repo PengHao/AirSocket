@@ -23,6 +23,8 @@ namespace AirCpp {
         virtual void onTimeOut(const Connection *) = 0;
         virtual void onSendFaild(const Connection *) = 0;
         virtual void onReadFaild(const Connection *) = 0;
+        virtual void willBeDestroy(const Connection *) = 0;
+        virtual bool needObserving(const Connection *) = 0;
     };
 }
 #endif /* AirConnectionObserver_h */

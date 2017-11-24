@@ -14,20 +14,27 @@
 namespace AirCpp {
     
     void Queue::pushOperation(Operation *operation){
+        mLock.lock();
         m_listOperations.push_back(operation);
+        mLock.unlock();
     }
     
-    
-    const Operation *Queue::head_operation() {
-        return *m_listOperations.begin();
-    }
-    
-    void Queue::remove_operation(const Operation *o) {
-        m_listOperations.remove(o);
+    const Operation *Queue::popfront_operation() {
+        if (m_listOperations.size() == 0) {
+            return nullptr;
+        }
+        if (mLock.try_lock() != 0) {
+            return nullptr;
+        }
+        const Operation * rs = m_listOperations.front();
+        m_listOperations.pop_front();
+        mLock.unlock();
+        return rs;
     }
     
     Queue::Queue(){
-        
+        mLock.init();
+        m_listOperations.clear();
     };
     
     Queue::~Queue(){

@@ -49,7 +49,7 @@ namespace AirCpp {
      */
     class Socket {
         friend Connection;
-        friend Listener;
+        friend Server;
     public:
         int m_iSocketHandle;
         sockaddr_in *m_pTarget_addr;

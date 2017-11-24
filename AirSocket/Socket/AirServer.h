@@ -12,30 +12,39 @@
 #include <stdio.h>
 #include <map>
 #include <vector>
-#include "AirListener.h"
+
 #include "Thread/AirThread.h"
 #include "Thread/AirOperation.h"
-#include "AirSessionManager.h"
-
+#include "AirConnectionManager.h"
 namespace AirCpp {
+    class Connection;
+    typedef std::function<void(const Connection *)> OnHandleConnection;
     class Server {
     protected:
-        Listener *_pListener;
         Thread *m_pListenThread;
         unsigned short m_uiPort;
         unsigned int m_uiBackLog;
         std::map<int, Connection *> m_mapConnections;
-        SessionManager *m_pSessionManager;
+        ConnectionManager *m_pConnectionManager;
+        Socket mSocket;
+        
+        unsigned int m_uiMaxNumInQueue;
+        unsigned long m_ulMaxConnectionNum;
+        unsigned long m_ulCurrentConnectionNum;
+        bool bStarting;
+        OnHandleConnection mHandle;
         
         fd_set m_ConnSet;
         ~Server();
         
-        void startListen();
+        int startListen();
         Server(unsigned short usPort, unsigned int uiBacklog);
-    public:
-        static Server *Create(unsigned short usPort, unsigned int uiBacklog, SessionManager *pSessionManager);
+        void stopListen();
         
-        void run();
+    public:
+        static Server *Create(unsigned short usPort, unsigned int uiBacklog, ConnectionManager *pConnectionManager);
+        
+        void run(OnHandleConnection handle);
     };
 }
 

@@ -12,32 +12,31 @@
 #include <iostream>
 #include "AirSocket.h"
 #include "AirSocketConfig.h"
-#include "AirPackage.h"
+#include "AirFormatDataIO.h"
 
 namespace AirCpp{
 #define TEMP_BUFFER_SIZE 1024
-    class ConnectionObserverCenter;
+    class ConnectionManager;
     class Listener;
     class Server;
     class ConnectionObserver;
     class Session;
+    class FormatDataIO;
     class Connection {
-        friend Listener;
-        friend Server;
         friend Session;
-        friend ConnectionObserverCenter;
+        friend ConnectionManager;
     protected:
         Socket *m_pSocket;
         int m_iDomainType;
         int m_iDataType;
         int m_iProtocol;
         ConnectionObserver *m_pConnectionObserver;
-        
+        FormatDataIO *m_pConnectionIO;
     protected:
         
-        Connection(int domainType, int dataType, int protocol);
+        Connection(int domainType, int dataType, int protocol, ConnectionObserver * pConnectionObserver, FormatDataIO *pConnectionIO);
         
-        Connection(Socket *ps);
+        Connection(Socket *ps, ConnectionObserver * pConnectionObserver, FormatDataIO *pConnectionIO);
         
         int init(const std::string &host, int port);
         
@@ -45,20 +44,19 @@ namespace AirCpp{
         
         void onReadable();
         
-    public:
-        ~Connection();
-        
-        void setConnectionObserver(ConnectionObserver * pConnectionObserver) {
-            m_pConnectionObserver = pConnectionObserver;
-        }
-        
-        static Connection * Create(const std::string &host, int port, int domainType = AF_INET, int dataType = SOCK_STREAM, int protocol = IPPROTO_TCP);
-        
-        int getHandle() const ;
-        
         long long read(char *c_data, long long length) const ;
         
         long long send(const char *c_data, long long length) const ;
+        
+    public:
+        ~Connection();
+        
+        int getHandle() const ;
+        
+        bool send(const FormatedData *package) const ;
+        
+        bool read(ReseivePackageHandler reseiveHandler) const ;
+        
     };
 }
 

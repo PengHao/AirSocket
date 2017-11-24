@@ -31,6 +31,7 @@
 #include <signal.h>
 #include "AirOperation.h"
 #include "AirQueue.h"
+#include "AirThreadLock.h"
 
 namespace AirCpp {
 

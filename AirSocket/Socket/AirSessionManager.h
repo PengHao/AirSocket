@@ -13,24 +13,40 @@
 #include "AirSession.h"
 
 namespace AirCpp {
-    class ConnectionObserver;
+    class ConnectionManager;
     class Connection;
-    class SessionManager : public SessionObserver{
+    
+    class SessionManager : public ConnectionObserver{
         friend Server;
     private:
         std::map<int, Session *> m_mapSessionMap;
-        ConnectionObserverCenter *m_pConnectionOberverCenter;
+        SessionObserver *m_pSessionObserver;
     protected:
-        SessionManager();
+        Session *create(const Connection *pConnection);
         
-        virtual void onReadable(Session *) = 0;
-        virtual void onTimeOut(Session *) = 0;
-        virtual void onHandleNewSession(Session *) = 0;
-        virtual void onSendFaild(Session *) = 0;
-        virtual void onReadFaild(Session *) = 0;
+        void onReadable(const Connection *pConnection);
         
-        Session *create(Connection *pConnection);
+        void onTimeOut(const Connection *pConnection);
+        
+        void onSendFaild(const Connection *pConnection);
+        
+        void onReadFaild(const Connection *pConnection);
+        
+        bool needObserving(const Connection *pConnection);
+        
+        void willBeDestroy(const Connection *pConnection);
+        
+        Session *getSession(const Connection *pConnection) {
+            return m_mapSessionMap[pConnection->getHandle()];
+        }
     public:
+        void destroySession(Session *pSession);
+        
+        SessionManager(SessionObserver *pSessionObserver);
+        
+        bool send(Session *pSession, const FormatedData *package);
+        
+        bool read(Session *pSession, ReseivePackageHandler reseiveHandler);
         
         
         virtual ~SessionManager();

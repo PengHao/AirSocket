@@ -14,33 +14,16 @@
 #include <iostream>
 
 namespace AirCpp {
-    class TPCircularBufferContainor;
-    class CircleBuffer {
-    protected:
-        TPCircularBufferContainor *m_pTPCircularBufferContainor;
-        
-        int32_t m_iSize;
-        
-        CircleBuffer(int32_t size);
-    public:
-        static CircleBuffer* Create(int32_t size);
-        
-        int32_t read(char *c_data, int32_t length);
-        
-        int32_t getWriteAvailableBytesSize();
-        
-        int32_t write(const char *c_data, int32_t length);
-    };
     
-    class DataFormat {
+    class FormatedData {
     public:
         virtual bool serial(std::string &serilazeString)  const = 0;
-        virtual bool deserial(std::string &serilazeString) = 0;
+        virtual bool deserial(std::string &deserilazeString) = 0;
         virtual bool getContent(std::string &contentData) const = 0;
         virtual bool setContent(const std::string &contentData) = 0;
     };
     
-    class Package : public DataFormat {
+    class Package : public FormatedData {
     public:
         unsigned long long m_ullSize;
         unsigned char *m_pData;

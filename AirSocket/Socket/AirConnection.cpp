@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include "AirConnection.h"
+#include "AirFormatDataIO.h"
 #include "AirConnectionObserver.h"
 namespace AirCpp {
     
@@ -15,31 +16,23 @@ namespace AirCpp {
         delete m_pSocket;
     }
     
-    Connection::Connection(int domainType, int dataType, int protocol):
+    Connection::Connection(int domainType, int dataType, int protocol, ConnectionObserver * pConnectionObserver, FormatDataIO *pConnectionIO):
     m_iDomainType(domainType),
     m_iDataType(dataType),
     m_iProtocol(protocol),
+    m_pConnectionObserver(pConnectionObserver),
+    m_pConnectionIO(pConnectionIO),
     m_pSocket(nullptr)
     {
         
     }
     
-    Connection::Connection(Socket *ps):
-    m_pSocket(ps)
+    Connection::Connection(Socket *ps, ConnectionObserver * pConnectionObserver, FormatDataIO *pConnectionIO):
+    m_pSocket(ps),
+    m_pConnectionIO(pConnectionIO),
+    m_pConnectionObserver(pConnectionObserver)
     {
     }
-    
-    Connection * Connection::Create(const std::string &host, int port, int domainType, int dataType, int protocol) {
-        Connection *connection = new Connection(domainType, dataType, protocol);
-        if ( connection->init(host, port) == 0 ) {
-            return connection;
-        } else {
-            delete connection;
-            connection = nullptr;
-        }
-        return connection;
-    }
-    
     
     int Connection::init(const std::string &host, int port) {
         m_pSocket = new Socket();
@@ -63,13 +56,29 @@ namespace AirCpp {
         m_pConnectionObserver->onReadable(this);
     }
     
-    long long Connection::read(char *c_data, long long length) const {
-        long long rs = m_pSocket->read(c_data, length);
-        if (rs < 0) {
-            m_pConnectionObserver->onReadFaild(this);
+    bool Connection::send(const FormatedData *package) const {
+        std::string dataString;
+        if (package->serial(dataString)) {
+            long long len = send(dataString.c_str(), dataString.length());
+            if (len == -1) {
+                //socket error
+                return false;
+            }
+            return true;
         }
-        return rs;
+        return false;
     }
+    
+    bool Connection::read(ReseivePackageHandler reseiveHandler) const {
+        char m_strTempBuffer[TEMP_BUFFER_SIZE] = {0};
+        long long size = m_pSocket->read(m_strTempBuffer, TEMP_BUFFER_SIZE);
+        if (size <= 0) {
+            return false;
+        }
+        m_pConnectionIO->fillData(size, m_strTempBuffer, reseiveHandler);
+        return true;
+    }
+    
     
     long long Connection::send(const char *c_data, long long length) const {
         long long rs = m_pSocket->send(c_data, length);

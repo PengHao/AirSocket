@@ -14,7 +14,7 @@
 #include "AirConnection.h"
 #include "AirConnectionPackageIO.h"
 #include "AirConnectionObserver.h"
-#include "AirConnectionObserverCenter.h"
+#include "AirConnectionManager.h"
 namespace AirCpp {
     class Session;
     class SessionManager;
@@ -25,42 +25,27 @@ namespace AirCpp {
         virtual void onHandleNewSession(Session *) = 0;
         virtual void onSendFaild(Session *) = 0;
         virtual void onReadFaild(Session *) = 0;
+        virtual bool needObserving(Session *) = 0;
         virtual ~SessionObserver(){};
     };
     
-    class Session : public ConnectionObserver{
+    class Session{
         friend SessionManager;
     protected:
         long long m_llUid;
-        Connection *m_pConnection;
-        SessionObserver *m_pSessionObserver;
-        ConnectionIO *m_pConnectionIO;
-        
-        void onReadable(const Connection *);
-        
-        void onTimeOut(const Connection *);
-        
-        void onSendFaild(const Connection *);
-        
-        void onReadFaild(const Connection *);
+        const Connection *m_pConnection;
         
     public:
         long long getUid();
         
         void setUid(long long uid);
         
-        Session(Connection *pConnection, SessionObserver *pSessionObserver);
+        const Connection *getConnection();
         
-        void setConnectionIO(ConnectionIO *pConnectionIO);
-        
-        bool send(const DataFormat *package);
-        
-        bool read(ReseivePackageHandler reseiveHandler);
+        Session(const Connection *pConnection);
         
         ~Session() {
             delete m_pConnection;
-            delete m_pSessionObserver;
-            delete m_pConnectionIO;
         }
     };
     

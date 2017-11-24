@@ -19,11 +19,11 @@
 #include "AirConnectionObserver.h"
 
 namespace AirCpp {
-    
-    class ConnectionObserverCenter {
+    class ConnectionIOFactory;
+    class ConnectionManager {
     protected:
-        static ConnectionObserverCenter *_defaultClent;
-        std::map<int, Connection *> m_mapConnectionObservers;
+        
+        std::map<int, Connection *> m_mapConnections;
         std::list<int> m_ListWillTimeoutConnections;
         
         struct timeval mTimeout;
@@ -32,27 +32,37 @@ namespace AirCpp {
         fd_set m_ConnSet;
         pthread_cond_t p_cond;
         Thread *m_pThread;
+        
         int m_iMaxHandle;
         
+        ConnectionObserver *m_pConnectionObserver;
         
-        ConnectionObserverCenter();
+        ConnectionIOFactory *m_pConnectionIOFactory;
+        
+        ConnectionManager(ConnectionObserver *pConnectionObserver, ConnectionIOFactory *pConnectionIOFactory);
         
         void resetTimeOut();
         
-        void onTimeOut();
+        void selectTimeOut();
         
-        void onError();
+        void selectError();
         
-        void onRead();
+        void selectRead();
         
         void select();
         
     public:
-        static ConnectionObserverCenter *defaultObserverCenter();
+        static ConnectionManager *create(ConnectionObserver *pConnectionObserver, ConnectionIOFactory *pConnectionIOFactory);
+        
+        Connection * create(const std::string &host, int port, int domainType = AF_INET, int dataType = SOCK_STREAM, int protocol = IPPROTO_TCP);
+        
+        Connection * create(Socket *ps);
         
         bool addObserver(Connection *connection);
         
-        ~ConnectionObserverCenter() {
+        void destroyConnection(const Connection* connection);
+        
+        ~ConnectionManager() {
             
         }
         

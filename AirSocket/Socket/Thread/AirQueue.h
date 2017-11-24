@@ -13,23 +13,27 @@
 #include <functional>
 #include <list>
 #include "AirOperation.h"
+#include "AirThreadLock.h"
 
 #define FINISHED 0x001
 
+
+
 namespace AirCpp {
+    
     class Queue {
         friend class Thread;
         
     private:
+        
+        Lock mLock;
         std::list<const Operation *> m_listOperations;
         
         void pushOperation(Operation *operation);
         
     protected:
         
-        const Operation *head_operation();
-        
-        void remove_operation(const Operation *o);
+        const Operation *popfront_operation();
         
     public:
         

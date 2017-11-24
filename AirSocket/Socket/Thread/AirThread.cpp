@@ -43,10 +43,10 @@ namespace AirCpp {
     
     void Thread::run_roop() {
         while (!_cancel) {
-            const Operation *oper = operation_queue->head_operation();
+            const Operation *oper = operation_queue->popfront_operation();
             if (oper) {
                 oper->excute();
-                operation_queue->remove_operation(oper);
+                delete oper;
             } else {
                 //sleep
                 pthread_cond_wait(&p_cond, &p_mutex);
@@ -69,6 +69,7 @@ namespace AirCpp {
         
         pthread_cond_init(&p_cond, NULL);
         pthread_mutex_init(&p_mutex, NULL);
+        
         return pthread_create(&p_id, NULL, _run_loop, (void *)this);
     }
     

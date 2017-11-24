@@ -8,12 +8,13 @@
 
 #include <stdio.h>
 #include "AirConnectionPackageIO.h"
+#include "AirFormatDataIO.h"
 namespace AirCpp {
     ConnectionPackageIO::ConnectionPackageIO() :
     pCurrentPackage(nullptr){
     }
     
-    void ConnectionPackageIO::fillData(unsigned long long len, char *data, FillPackageCallBack handleFilledPackage) {
+    void ConnectionPackageIO::fillData(unsigned long long len, char *data, ReseivePackageHandler reseiveHandler) {
         if (!pCurrentPackage) {
             pCurrentPackage = new Package();
         }
@@ -29,7 +30,7 @@ namespace AirCpp {
             pDataOffset += s;
             len -= s;
             if (len > 0) {
-                fillData(len, pDataOffset, handleFilledPackage);
+                fillData(len, pDataOffset, reseiveHandler);
             }
         } else {
             if (pCurrentPackage->m_ullSize <= 0) {
@@ -45,13 +46,13 @@ namespace AirCpp {
             if (unsetDataSize <= len) {
                 memcpy(pOffset, data, unsetDataSize);
                 pCurrentPackage->m_ullFilledSize += unsetDataSize;
-                handleFilledPackage(pCurrentPackage);
+                reseiveHandler(pCurrentPackage);
                 len -= unsetDataSize;
                 pDataOffset += unsetDataSize;
                 delete pCurrentPackage;
                 pCurrentPackage = nullptr;
                 if (len > 0) {
-                    fillData(len, pDataOffset, handleFilledPackage);
+                    fillData(len, pDataOffset, reseiveHandler);
                 }
             } else {
                 memcpy(pOffset, data, len);
@@ -63,29 +64,4 @@ namespace AirCpp {
     ConnectionPackageIO::~ConnectionPackageIO() {
     }
     
-    bool ConnectionPackageIO::send(const DataFormat *package, Connection *pConnection) {
-        std::string dataString;
-        if (package->serial(dataString)) {
-            long long len = pConnection->send(dataString.c_str(), dataString.length());
-            if (len == -1) {
-                //socket error
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-    
-    bool ConnectionPackageIO::read(ReseivePackageHandler reseiveHandler, Connection *pConnection) {
-        memset(m_strTempBuffer, 0, TEMP_BUFFER_SIZE);
-        long long size = pConnection->read(m_strTempBuffer, TEMP_BUFFER_SIZE);
-        if (size <= 0) {
-            return false;
-        }
-        
-        fillData(size, m_strTempBuffer, [=](const Package *package){
-            reseiveHandler(package);
-        });
-        return true;
-    }
 }

@@ -14,31 +14,28 @@
 #include "AirPackage.h"
 #include "AirConnection.h"
 #include "AirConnectionObserver.h"
-#include "AirConnectionIO.h"
+
 #define TEMP_BUFFER_SIZE 1024
 namespace AirCpp {
     
-    class ConnectionPackageIO : public ConnectionIO {
+    class ConnectionPackageIO : public FormatDataIO {
         class ConnectionObserverCenter;
         class Listener;
         class Server;
         
     private:
         typedef std::function<void(const Package *package)> FillPackageCallBack;
-        char m_strTempBuffer[TEMP_BUFFER_SIZE];
+        
         Package * pCurrentPackage;
         
-        
-        void fillData(unsigned long long len, char *data, FillPackageCallBack handleFilledPackage);
     public:
         
         ConnectionPackageIO();
         
         ~ConnectionPackageIO();
         
-        bool send(const DataFormat *package, Connection *pConnection);
+        void fillData(unsigned long long len, char *data, ReseivePackageHandler reseiveHandler);
         
-        bool read(ReseivePackageHandler reseiveHandler, Connection *pConnection);
     };
 }
 

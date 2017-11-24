@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4B70BB581FC4496A00E220D3 /* AirConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB391FC4496A00E220D3 /* AirConnection.cpp */; };
-		4B70BB591FC4496A00E220D3 /* AirConnectionObserverCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB3D1FC4496A00E220D3 /* AirConnectionObserverCenter.cpp */; };
+		4B70BB591FC4496A00E220D3 /* AirConnectionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB3D1FC4496A00E220D3 /* AirConnectionManager.cpp */; };
 		4B70BB5A1FC4496A00E220D3 /* AirConnectionPackageIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB3F1FC4496A00E220D3 /* AirConnectionPackageIO.cpp */; };
-		4B70BB5B1FC4496A00E220D3 /* AirListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB411FC4496A00E220D3 /* AirListener.cpp */; };
 		4B70BB5C1FC4496A00E220D3 /* AirPackage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB431FC4496A00E220D3 /* AirPackage.cpp */; };
 		4B70BB5D1FC4496A00E220D3 /* AirServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB451FC4496A00E220D3 /* AirServer.cpp */; };
 		4B70BB5E1FC4496A00E220D3 /* AirSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB471FC4496A00E220D3 /* AirSession.cpp */; };
@@ -20,11 +19,10 @@
 		4B70BB621FC4496A00E220D3 /* AirThreadLock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB541FC4496A00E220D3 /* AirThreadLock.cpp */; };
 		4B70BB631FC4496A00E220D3 /* AirThreadPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB561FC4496A00E220D3 /* AirThreadPool.cpp */; };
 		4B70BB641FC44B0700E220D3 /* AirConnection.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3A1FC4496A00E220D3 /* AirConnection.h */; };
-		4B70BB651FC44B0700E220D3 /* AirConnectionIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3B1FC4496A00E220D3 /* AirConnectionIO.h */; };
+		4B70BB651FC44B0700E220D3 /* AirFormatDataIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3B1FC4496A00E220D3 /* AirFormatDataIO.h */; };
 		4B70BB661FC44B0700E220D3 /* AirConnectionObserver.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */; };
-		4B70BB671FC44B0700E220D3 /* AirConnectionObserverCenter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3E1FC4496A00E220D3 /* AirConnectionObserverCenter.h */; };
+		4B70BB671FC44B0700E220D3 /* AirConnectionManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3E1FC4496A00E220D3 /* AirConnectionManager.h */; };
 		4B70BB681FC44B0700E220D3 /* AirConnectionPackageIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB401FC4496A00E220D3 /* AirConnectionPackageIO.h */; };
-		4B70BB691FC44B0700E220D3 /* AirListener.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB421FC4496A00E220D3 /* AirListener.h */; };
 		4B70BB6A1FC44B0700E220D3 /* AirPackage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB441FC4496A00E220D3 /* AirPackage.h */; };
 		4B70BB6B1FC44B0700E220D3 /* AirServer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB461FC4496A00E220D3 /* AirServer.h */; };
 		4B70BB6C1FC44B0700E220D3 /* AirSession.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB481FC4496A00E220D3 /* AirSession.h */; };
@@ -37,6 +35,8 @@
 		4B70BB7C1FC44B6400E220D3 /* AirThreadPool.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB571FC4496A00E220D3 /* AirThreadPool.h */; };
 		4B70BB7E1FC44C5200E220D3 /* AirOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB7D1FC44C5200E220D3 /* AirOperation.cpp */; };
 		4B70BB831FC44FF200E220D3 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */; };
+		4B9376251FC80FA200D5E3DE /* AirCircleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B9376231FC80FA200D5E3DE /* AirCircleBuffer.cpp */; };
+		4B9376261FC8100500D5E3DE /* AirCircleBuffer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B9376241FC80FA200D5E3DE /* AirCircleBuffer.h */; };
 		4B976B2F1FC5457300540752 /* AirSessionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B976B2D1FC5457300540752 /* AirSessionManager.cpp */; };
 		4B976B301FC54F9100540752 /* AirSessionManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B976B2E1FC5457300540752 /* AirSessionManager.h */; };
 		4BF9D5E21FB401C300350B97 /* AirSocket.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9D5E11FB401C300350B97 /* AirSocket.mm */; };
@@ -63,13 +63,13 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				4B9376261FC8100500D5E3DE /* AirCircleBuffer.h in CopyFiles */,
 				4B976B301FC54F9100540752 /* AirSessionManager.h in CopyFiles */,
 				4B70BB641FC44B0700E220D3 /* AirConnection.h in CopyFiles */,
-				4B70BB651FC44B0700E220D3 /* AirConnectionIO.h in CopyFiles */,
+				4B70BB651FC44B0700E220D3 /* AirFormatDataIO.h in CopyFiles */,
 				4B70BB661FC44B0700E220D3 /* AirConnectionObserver.h in CopyFiles */,
-				4B70BB671FC44B0700E220D3 /* AirConnectionObserverCenter.h in CopyFiles */,
+				4B70BB671FC44B0700E220D3 /* AirConnectionManager.h in CopyFiles */,
 				4B70BB681FC44B0700E220D3 /* AirConnectionPackageIO.h in CopyFiles */,
-				4B70BB691FC44B0700E220D3 /* AirListener.h in CopyFiles */,
 				4B70BB6A1FC44B0700E220D3 /* AirPackage.h in CopyFiles */,
 				4B70BB6B1FC44B0700E220D3 /* AirServer.h in CopyFiles */,
 				4B70BB6C1FC44B0700E220D3 /* AirSession.h in CopyFiles */,
@@ -83,14 +83,12 @@
 /* Begin PBXFileReference section */
 		4B70BB391FC4496A00E220D3 /* AirConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnection.cpp; sourceTree = "<group>"; };
 		4B70BB3A1FC4496A00E220D3 /* AirConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnection.h; sourceTree = "<group>"; };
-		4B70BB3B1FC4496A00E220D3 /* AirConnectionIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionIO.h; sourceTree = "<group>"; };
+		4B70BB3B1FC4496A00E220D3 /* AirFormatDataIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirFormatDataIO.h; sourceTree = "<group>"; };
 		4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionObserver.h; sourceTree = "<group>"; };
-		4B70BB3D1FC4496A00E220D3 /* AirConnectionObserverCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnectionObserverCenter.cpp; sourceTree = "<group>"; };
-		4B70BB3E1FC4496A00E220D3 /* AirConnectionObserverCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionObserverCenter.h; sourceTree = "<group>"; };
+		4B70BB3D1FC4496A00E220D3 /* AirConnectionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnectionManager.cpp; sourceTree = "<group>"; };
+		4B70BB3E1FC4496A00E220D3 /* AirConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionManager.h; sourceTree = "<group>"; };
 		4B70BB3F1FC4496A00E220D3 /* AirConnectionPackageIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnectionPackageIO.cpp; sourceTree = "<group>"; };
 		4B70BB401FC4496A00E220D3 /* AirConnectionPackageIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionPackageIO.h; sourceTree = "<group>"; };
-		4B70BB411FC4496A00E220D3 /* AirListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirListener.cpp; sourceTree = "<group>"; };
-		4B70BB421FC4496A00E220D3 /* AirListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirListener.h; sourceTree = "<group>"; };
 		4B70BB431FC4496A00E220D3 /* AirPackage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirPackage.cpp; sourceTree = "<group>"; };
 		4B70BB441FC4496A00E220D3 /* AirPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirPackage.h; sourceTree = "<group>"; };
 		4B70BB451FC4496A00E220D3 /* AirServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirServer.cpp; sourceTree = "<group>"; };
@@ -112,6 +110,8 @@
 		4B70BB7D1FC44C5200E220D3 /* AirOperation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AirOperation.cpp; sourceTree = "<group>"; };
 		4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
 		4B70BB821FC44FF200E220D3 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		4B9376231FC80FA200D5E3DE /* AirCircleBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AirCircleBuffer.cpp; sourceTree = "<group>"; };
+		4B9376241FC80FA200D5E3DE /* AirCircleBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirCircleBuffer.h; sourceTree = "<group>"; };
 		4B976B2D1FC5457300540752 /* AirSessionManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AirSessionManager.cpp; sourceTree = "<group>"; };
 		4B976B2E1FC5457300540752 /* AirSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirSessionManager.h; sourceTree = "<group>"; };
 		4BF9D5DD1FB401C300350B97 /* libAirSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAirSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,30 +133,30 @@
 		4B70BB381FC4496A00E220D3 /* Socket */ = {
 			isa = PBXGroup;
 			children = (
-				4B976B2D1FC5457300540752 /* AirSessionManager.cpp */,
-				4B976B2E1FC5457300540752 /* AirSessionManager.h */,
 				4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */,
 				4B70BB821FC44FF200E220D3 /* TPCircularBuffer.h */,
 				4B70BB391FC4496A00E220D3 /* AirConnection.cpp */,
 				4B70BB3A1FC4496A00E220D3 /* AirConnection.h */,
-				4B70BB3B1FC4496A00E220D3 /* AirConnectionIO.h */,
+				4B70BB3B1FC4496A00E220D3 /* AirFormatDataIO.h */,
 				4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */,
-				4B70BB3D1FC4496A00E220D3 /* AirConnectionObserverCenter.cpp */,
-				4B70BB3E1FC4496A00E220D3 /* AirConnectionObserverCenter.h */,
+				4B70BB3D1FC4496A00E220D3 /* AirConnectionManager.cpp */,
+				4B70BB3E1FC4496A00E220D3 /* AirConnectionManager.h */,
 				4B70BB3F1FC4496A00E220D3 /* AirConnectionPackageIO.cpp */,
 				4B70BB401FC4496A00E220D3 /* AirConnectionPackageIO.h */,
-				4B70BB411FC4496A00E220D3 /* AirListener.cpp */,
-				4B70BB421FC4496A00E220D3 /* AirListener.h */,
 				4B70BB431FC4496A00E220D3 /* AirPackage.cpp */,
 				4B70BB441FC4496A00E220D3 /* AirPackage.h */,
 				4B70BB451FC4496A00E220D3 /* AirServer.cpp */,
 				4B70BB461FC4496A00E220D3 /* AirServer.h */,
 				4B70BB471FC4496A00E220D3 /* AirSession.cpp */,
 				4B70BB481FC4496A00E220D3 /* AirSession.h */,
+				4B976B2D1FC5457300540752 /* AirSessionManager.cpp */,
+				4B976B2E1FC5457300540752 /* AirSessionManager.h */,
 				4B70BB491FC4496A00E220D3 /* AirSocket.cpp */,
 				4B70BB4A1FC4496A00E220D3 /* AirSocket.h */,
 				4B70BB4B1FC4496A00E220D3 /* AirSocketConfig.h */,
 				4B70BB4D1FC4496A00E220D3 /* Thread */,
+				4B9376231FC80FA200D5E3DE /* AirCircleBuffer.cpp */,
+				4B9376241FC80FA200D5E3DE /* AirCircleBuffer.h */,
 			);
 			path = Socket;
 			sourceTree = "<group>";
@@ -266,16 +266,16 @@
 				4B70BB7E1FC44C5200E220D3 /* AirOperation.cpp in Sources */,
 				4B70BB601FC4496A00E220D3 /* AirQueue.cpp in Sources */,
 				4B976B2F1FC5457300540752 /* AirSessionManager.cpp in Sources */,
-				4B70BB5B1FC4496A00E220D3 /* AirListener.cpp in Sources */,
 				4B70BB831FC44FF200E220D3 /* TPCircularBuffer.c in Sources */,
 				4B70BB611FC4496A00E220D3 /* AirThread.cpp in Sources */,
-				4B70BB591FC4496A00E220D3 /* AirConnectionObserverCenter.cpp in Sources */,
+				4B70BB591FC4496A00E220D3 /* AirConnectionManager.cpp in Sources */,
 				4B70BB581FC4496A00E220D3 /* AirConnection.cpp in Sources */,
 				4B70BB631FC4496A00E220D3 /* AirThreadPool.cpp in Sources */,
 				4B70BB5C1FC4496A00E220D3 /* AirPackage.cpp in Sources */,
 				4B70BB5F1FC4496A00E220D3 /* AirSocket.cpp in Sources */,
 				4BF9D5E21FB401C300350B97 /* AirSocket.mm in Sources */,
 				4B70BB5D1FC4496A00E220D3 /* AirServer.cpp in Sources */,
+				4B9376251FC80FA200D5E3DE /* AirCircleBuffer.cpp in Sources */,
 				4B70BB5A1FC4496A00E220D3 /* AirConnectionPackageIO.cpp in Sources */,
 				4B70BB5E1FC4496A00E220D3 /* AirSession.cpp in Sources */,
 				4B70BB621FC4496A00E220D3 /* AirThreadLock.cpp in Sources */,
@@ -379,6 +379,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 3FQZ84DGYW;
+				ENABLE_BITCODE = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -389,6 +390,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 3FQZ84DGYW;
+				ENABLE_BITCODE = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

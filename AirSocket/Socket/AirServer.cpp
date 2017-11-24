@@ -7,11 +7,9 @@
 //
 
 #include "AirServer.h"
+#include "AirSocket.h"
 namespace AirCpp {
     Server::~Server() {
-        if (_pListener) {
-            delete _pListener;
-        }
         if (m_pListenThread) {
             delete m_pListenThread;
         }
@@ -20,35 +18,64 @@ namespace AirCpp {
         }
     }
     
-    void Server::startListen() {
-        _pListener = new AirCpp::Listener(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-        if (_pListener->init(m_uiPort, m_uiBackLog) == 0 ) {
-            printf("pListener->init \r\n");
-            _pListener->startListen([&](Connection *pConnection) {
-                m_pSessionManager->create(pConnection);
-            });
-            printf("pListener->startListen \r\n");
-        } else {
+    int Server::startListen(){
+        if (mSocket.init(AF_INET, SOCK_STREAM, IPPROTO_TCP) != 0
+            || mSocket.bind(m_uiPort) != 0
+            || mSocket.listen(m_uiBackLog) != 0) {
             perror("listen port failed!");
-            exit(0);
+            return -1;
         }
+        
+        printf("start listen socketHandle\n");
+        bStarting = true;
+        int  t = -1;
+        sockaddr clientAddr;
+        socklen_t clientSize;
+        while (bStarting) {
+            t = mSocket.accept(&clientAddr, &clientSize);
+            if (t < 0) { /* get a connection */
+                if (errno == EINTR)             /* EINTR might happen on accept(), */
+                {
+                    sleep(1.0);
+                    continue;                   /* try again */
+                }
+                else
+                    return -1;
+            } else {
+                Socket *pSocket = new Socket();
+                pSocket->init(t, &clientAddr, &clientSize);
+                Connection *pConnection = m_pConnectionManager->create(pSocket);
+                printf("handle connection\r\n");
+                if (mHandle) {
+                    mHandle(pConnection);
+                }
+            }
+            sleep(1.0);
+        }
+        return 0;
+    };
+    
+    void Server::stopListen(){
+        bStarting = false;
+        mSocket.close();
     }
     
     Server::Server(unsigned short usPort, unsigned int uiBacklog):
     m_uiPort(usPort),
     m_uiBackLog(uiBacklog),
-    _pListener(nullptr){
+    mHandle(nullptr){
         m_pListenThread = new Thread();
         m_pListenThread->init();
     }
     
-    Server *Server::Create(unsigned short usPort, unsigned int uiBacklog, SessionManager *pSessionManager) {
+    Server *Server::Create(unsigned short usPort, unsigned int uiBacklog, ConnectionManager *pConnectionManager) {
         Server *server = new Server(usPort, uiBacklog);
-        server->m_pSessionManager = pSessionManager;
+        server->m_pConnectionManager = pConnectionManager;
         return server;
     }
     
-    void Server::run() {
+    void Server::run(OnHandleConnection handle) {
+        mHandle = handle;
         startListen();
     }
 }
