@@ -22,7 +22,6 @@ namespace AirCpp {
         std::map<int, Session *> m_mapSessionMap;
         SessionObserver *m_pSessionObserver;
     protected:
-        Session *create(const Connection *pConnection);
         
         void onReadable(const Connection *pConnection);
         
@@ -40,6 +39,8 @@ namespace AirCpp {
             return m_mapSessionMap[pConnection->getHandle()];
         }
     public:
+        Session *create(const Connection *pConnection);
+        
         void destroySession(Session *pSession);
         
         SessionManager(SessionObserver *pSessionObserver);

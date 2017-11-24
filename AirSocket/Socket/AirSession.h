@@ -26,6 +26,7 @@ namespace AirCpp {
         virtual void onSendFaild(Session *) = 0;
         virtual void onReadFaild(Session *) = 0;
         virtual bool needObserving(Session *) = 0;
+        virtual void willBeDestroy(Session *) = 0;
         virtual ~SessionObserver(){};
     };
     

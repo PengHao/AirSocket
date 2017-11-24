@@ -23,9 +23,7 @@ namespace AirCpp {
     }
     
     void SessionManager::onReadable(const Connection *pConnection) {
-        pConnection->read([&](const FormatedData *data) {
-            
-        });
+        m_pSessionObserver->onReadable(getSession(pConnection));
     }
     
     void SessionManager::onTimeOut(const Connection *pConnection) {
@@ -45,8 +43,7 @@ namespace AirCpp {
     }
     
     void SessionManager::willBeDestroy(const Connection *pConnection) {
-        
-        
+        m_pSessionObserver->willBeDestroy(getSession(pConnection));
     }
     
     SessionManager::~SessionManager() {
