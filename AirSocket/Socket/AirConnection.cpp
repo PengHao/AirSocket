@@ -13,7 +13,9 @@
 namespace AirCpp {
     
     Connection::~Connection() {
+        printf("connection deleted\r\n");
         delete m_pSocket;
+        delete m_pConnectionIO;
     }
     
     Connection::Connection(int domainType, int dataType, int protocol, ConnectionObserver * pConnectionObserver, FormatDataIO *pConnectionIO):

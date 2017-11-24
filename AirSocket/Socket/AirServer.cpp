@@ -13,9 +13,6 @@ namespace AirCpp {
         if (m_pListenThread) {
             delete m_pListenThread;
         }
-        for (const auto kvp : m_mapConnections) {
-            delete kvp.second;
-        }
     }
     
     int Server::startListen(){

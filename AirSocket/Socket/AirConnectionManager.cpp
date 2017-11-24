@@ -29,6 +29,7 @@ namespace AirCpp {
     
     void ConnectionManager::destroyConnection(const Connection* connection) {
         m_pConnectionObserver->willBeDestroy(connection);
+        m_mapConnections[connection->getHandle()]->m_pConnectionObserver = nullptr;
     }
     
     Connection * ConnectionManager::create(Socket *ps) {
@@ -71,7 +72,9 @@ namespace AirCpp {
     
     void ConnectionManager::selectTimeOut() {
         for (const auto &e : m_ListWillTimeoutConnections) {
-            m_mapConnections[e]->onTimeOut();
+            if (m_mapConnections[e]) {
+                m_mapConnections[e]->onTimeOut();
+            }
         }
     }
     
@@ -109,12 +112,13 @@ namespace AirCpp {
                     FD_SET(kvp.first, &m_ConnSet);
                     max = std::max(kvp.first, max);
                 }
-                if (kvp.second->m_pConnectionObserver == nullptr) {
+                if (kvp.second == nullptr || kvp.second->m_pConnectionObserver == nullptr) {
                     needRemoveConnectionHandles.push_back(kvp.first);
                 }
             }
             
             for (int handle : needRemoveConnectionHandles) {
+                delete m_mapConnections[handle];
                 m_mapConnections.erase(handle);
             }
             

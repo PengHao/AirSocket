@@ -62,6 +62,8 @@ namespace AirCpp {
     }
     
     ConnectionPackageIO::~ConnectionPackageIO() {
+        printf("delete connection package\r\n");
+        delete pCurrentPackage;
     }
     
 }

@@ -24,7 +24,6 @@ namespace AirCpp {
         Thread *m_pListenThread;
         unsigned short m_uiPort;
         unsigned int m_uiBackLog;
-        std::map<int, Connection *> m_mapConnections;
         ConnectionManager *m_pConnectionManager;
         Socket mSocket;
         

@@ -67,6 +67,7 @@ namespace AirCpp {
     }
     
     Package::~Package() {
+        printf("delete Package\r\n");
         if (m_pData) {
             free(m_pData);
         }
