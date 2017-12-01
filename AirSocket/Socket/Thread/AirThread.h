@@ -89,7 +89,17 @@ namespace AirCpp {
          *	取消运行
          *
          */
-        void cancel();
+        int cancel();
+        
+        static void enableCancel();
+        
+        static void tryCancel();
+        
+        /**
+         *    强制退出
+         *
+         */
+        void exit();
         
         /**
          *	等待线程运行结束

@@ -10,10 +10,12 @@
 #include "AirConnection.h"
 #include "AirFormatDataIO.h"
 #include "AirConnectionObserver.h"
+#include "AirSocketDefine.h"
+
 namespace AirCpp {
     
     Connection::~Connection() {
-        printf("connection deleted\r\n");
+        LOG_INFO("connection deleted\r\n");
         delete m_pSocket;
         delete m_pConnectionIO;
     }
@@ -51,11 +53,15 @@ namespace AirCpp {
     }
     
     void Connection::onTimeOut() {
-        m_pConnectionObserver->onTimeOut(this);
+        if (m_pConnectionObserver) {
+            m_pConnectionObserver->onTimeOut(this);
+        }
     }
     
     void Connection::onReadable() {
-        m_pConnectionObserver->onReadable(this);
+        if (m_pConnectionObserver) {
+            m_pConnectionObserver->onReadable(this);
+        }
     }
     
     bool Connection::send(const FormatedData *package) const {
@@ -85,7 +91,9 @@ namespace AirCpp {
     long long Connection::send(const char *c_data, long long length) const {
         long long rs = m_pSocket->send(c_data, length);
         if (rs < 0) {
-            m_pConnectionObserver->onSendFaild(this);
+            if (m_pConnectionObserver) {
+                m_pConnectionObserver->onSendFaild(this);
+            }
         }
         return rs;
     }

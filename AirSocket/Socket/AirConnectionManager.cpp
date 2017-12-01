@@ -8,6 +8,7 @@
 
 #include "AirConnectionManager.h"
 #include "AirFormatDataIO.h"
+#include "AirSocketDefine.h"
 namespace AirCpp {
     
     ConnectionManager *ConnectionManager::create(ConnectionObserver *pConnectionObserver, ConnectionIOFactory *pConnectionIOFactory) {
@@ -49,10 +50,10 @@ namespace AirCpp {
         Thread::excute_async(m_pThread, [&] {
             select();
         });
-        mTimeout.tv_sec = 10;
-        mTimeout.tv_usec = 0;
-        mDefaultTimeOut.tv_sec = 10;
-        mDefaultTimeOut.tv_usec = 0;
+        mTimeout.tv_sec = 0;
+        mTimeout.tv_usec = 500000;
+        mDefaultTimeOut.tv_sec = 0;
+        mDefaultTimeOut.tv_usec = 500000;
     }
     
     bool ConnectionManager::addObserver(Connection *pConnection) {
@@ -100,11 +101,13 @@ namespace AirCpp {
     
     void ConnectionManager::select() {
         resetTimeOut();
+        std::list<int> needRemoveConnectionHandles;
+        int max = 0;
         while (true) {
-            time_t now = time(nullptr);
+            LOG_INFO("thread : %lld, select : %lld\r\n", m_pThread, this);
+            max = 0;
+            needRemoveConnectionHandles.clear();
             FD_ZERO(&m_ConnSet);
-            int max = 0;
-            std::list<int> needRemoveConnectionHandles;
             for(const auto& kvp : m_mapConnections) {
                 if (kvp.second != nullptr
                     && kvp.second->m_pConnectionObserver != nullptr
@@ -137,10 +140,6 @@ namespace AirCpp {
                     //read
                     selectRead();
                     break;
-            }
-            time_t left = 15 - now - time(nullptr);
-            if ( left > 0 ) {
-                sleep(left);
             }
         }
     }

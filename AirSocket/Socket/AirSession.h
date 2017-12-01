@@ -45,9 +45,7 @@ namespace AirCpp {
         
         Session(const Connection *pConnection);
         
-        ~Session() {
-            printf("delete session\r\n");
-        }
+        ~Session();
     };
     
 }

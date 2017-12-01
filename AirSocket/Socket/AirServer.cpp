@@ -8,6 +8,7 @@
 
 #include "AirServer.h"
 #include "AirSocket.h"
+#include "AirSocketDefine.h"
 namespace AirCpp {
     Server::~Server() {
         if (m_pListenThread) {
@@ -23,7 +24,7 @@ namespace AirCpp {
             return -1;
         }
         
-        printf("start listen socketHandle\n");
+        LOG_INFO("start listen socketHandle\n");
         bStarting = true;
         int  t = -1;
         sockaddr clientAddr;
@@ -42,7 +43,7 @@ namespace AirCpp {
                 Socket *pSocket = new Socket();
                 pSocket->init(t, &clientAddr, &clientSize);
                 Connection *pConnection = m_pConnectionManager->create(pSocket);
-                printf("handle connection\r\n");
+                LOG_INFO("handle connection\r\n");
                 if (mHandle) {
                     mHandle(pConnection);
                 }

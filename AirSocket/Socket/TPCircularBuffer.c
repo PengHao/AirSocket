@@ -31,11 +31,12 @@
 #include <mach/mach.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "AirSocketDefine.h"
 
 #define reportResult(result,operation) (_reportResult((result),(operation),strrchr(__FILE__, '/')+1,__LINE__))
 static inline bool _reportResult(kern_return_t result, const char *operation, const char* file, int line) {
     if ( result != ERR_SUCCESS ) {
-        printf("%s:%d: %s: %s\n", file, line, operation, mach_error_string(result)); 
+        LOG_INFO("%s:%d: %s: %s\n", file, line, operation, mach_error_string(result));
         return false;
     }
     return true;
@@ -113,7 +114,7 @@ bool _TPCircularBufferInit(TPCircularBuffer *buffer, int32_t length, size_t stru
         if ( virtualAddress != bufferAddress+buffer->length ) {
             // If the memory is not contiguous, clean up both allocated buffers and try again
             if ( retries-- == 0 ) {
-                printf("Couldn't map buffer memory to end of buffer\n");
+                LOG_INFO("Couldn't map buffer memory to end of buffer\n");
                 return false;
             }
 

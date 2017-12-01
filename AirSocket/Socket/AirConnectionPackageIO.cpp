@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "AirConnectionPackageIO.h"
 #include "AirFormatDataIO.h"
+#include "AirSocketDefine.h"
 namespace AirCpp {
     ConnectionPackageIO::ConnectionPackageIO() :
     pCurrentPackage(nullptr){
@@ -62,7 +63,7 @@ namespace AirCpp {
     }
     
     ConnectionPackageIO::~ConnectionPackageIO() {
-        printf("delete connection package\r\n");
+        LOG_INFO("delete connection package\r\n");
         delete pCurrentPackage;
     }
     

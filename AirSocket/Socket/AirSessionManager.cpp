@@ -14,15 +14,24 @@ namespace AirCpp {
         
     }
     
-    bool SessionManager::send(Session *pSession, const FormatedData *package) {
+    inline Session *SessionManager::getSession(long long uid) {
+        for (std::pair<int, Session *> kv : m_mapSessionMap) {
+            if (kv.second && kv.second->getUid() == uid) {
+                return kv.second;
+            }
+        }
+        return nullptr;
+    }
+    
+    inline bool SessionManager::send(Session *pSession, const FormatedData *package) {
         return pSession->m_pConnection->send(package);
     }
     
-    bool SessionManager::read(Session *pSession, ReseivePackageHandler reseiveHandler) {
+    inline bool SessionManager::read(Session *pSession, ReseivePackageHandler reseiveHandler) {
         return pSession->m_pConnection->read(reseiveHandler);
     }
     
-    void SessionManager::onReadable(const Connection *pConnection) {
+    inline void SessionManager::onReadable(const Connection *pConnection) {
         m_pSessionObserver->onReadable(getSession(pConnection));
     }
     
@@ -38,7 +47,7 @@ namespace AirCpp {
         m_pSessionObserver->onReadFaild(getSession(pConnection));
     }
     
-    bool SessionManager::needObserving(const Connection *pConnection) {
+    inline bool SessionManager::needObserving(const Connection *pConnection) {
         return m_pSessionObserver->needObserving(getSession(pConnection));
     }
     
@@ -57,11 +66,9 @@ namespace AirCpp {
         delete pSession;
     }
     
-    Session *SessionManager::create(const Connection *pConnection) {
-        Session *pSession = new Session(pConnection);
-        m_mapSessionMap[pConnection->getHandle()] = pSession;
+    void SessionManager::addSession(Session *pSession) {
+        m_mapSessionMap[pSession->getConnection()->getHandle()] = pSession;
         m_pSessionObserver->onHandleNewSession(pSession);
-        return pSession;
     }
     
     

@@ -20,6 +20,7 @@ namespace AirCpp {
         friend Server;
     private:
         std::map<int, Session *> m_mapSessionMap;
+        
         SessionObserver *m_pSessionObserver;
     protected:
         
@@ -39,7 +40,9 @@ namespace AirCpp {
             return m_mapSessionMap[pConnection->getHandle()];
         }
     public:
-        Session *create(const Connection *pConnection);
+        Session *getSession(long long uid);
+        
+        void addSession(Session *pSession);
         
         void destroySession(Session *pSession);
         

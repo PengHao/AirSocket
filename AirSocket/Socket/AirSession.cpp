@@ -7,6 +7,7 @@
 //
 
 #include "AirSession.h"
+#include "AirSocketDefine.h"
 namespace AirCpp {
 
     void Session::setUid(long long uid) {
@@ -25,6 +26,11 @@ namespace AirCpp {
     
     long long Session::getUid() {
         return m_llUid;
+    }
+    
+    Session::~Session(){
+        LOG_INFO("delete session");
+
     }
 
 }

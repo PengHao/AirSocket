@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include "AirSocket.h"
+#include "AirSocketDefine.h"
 namespace AirCpp {
     
     Socket::Socket( const Socket &s ): m_iSocketHandle(s.m_iSocketHandle) {
@@ -37,13 +38,13 @@ namespace AirCpp {
     {
         //不做任何处理即可
         perror("Some socket connection is timeout!\n");
-        printf("getpid = %d\n", getpid());
+        LOG_INFO("getpid = %d\n", getpid());
     }
     
     int Socket::connect(const std::string &host, int port){
         const char *ip_addr = get_ip(host);
         if (NULL == ip_addr) {
-            printf("cannot find ip from host %s ,please check your url or network! \n", host.c_str());
+            LOG_INFO("cannot find ip from host %s ,please check your url or network! \n", host.c_str());
             return -1;
         }
         
@@ -62,7 +63,7 @@ namespace AirCpp {
     int Socket::bind(unsigned short portnum){
         hostent * h = get_host_info();
         if (h == NULL) {
-            printf("failed to get gethostbyname\n");
+            LOG_INFO("failed to get gethostbyname\n");
             return -1;
         }
         m_pTarget_addr->sin_family= h->h_addrtype;                     /* this is our host address */

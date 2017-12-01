@@ -7,6 +7,7 @@
 //
 
 #include "AirPackage.h"
+#include "AirSocketDefine.h"
 namespace AirCpp {
     
     Package::Package():
@@ -49,7 +50,7 @@ namespace AirCpp {
         memcpy(&m_ullSize, pData, sizeof(m_ullSize));
         leftSize -= sizeof(m_ullSize);
         if (m_ullSize > leftSize) {
-            printf("data broken");
+            LOG_INFO("data broken");
             return false;
         } else {
             m_pData = (unsigned char *)calloc(sizeof(char), m_ullSize);
@@ -67,7 +68,7 @@ namespace AirCpp {
     }
     
     Package::~Package() {
-        printf("delete Package\r\n");
+        LOG_INFO("delete Package\r\n");
         if (m_pData) {
             free(m_pData);
         }

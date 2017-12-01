@@ -73,13 +73,24 @@ namespace AirCpp {
         return pthread_create(&p_id, NULL, _run_loop, (void *)this);
     }
     
-    void Thread::cancel(){
-        _cancel = true;
+    int Thread::cancel(){
+        return pthread_cancel(p_id);
+    }
+    
+    
+    void Thread::enableCancel() {
+        pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL); //允许退出线程
+        pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL); //设置立即取消
+    }
+    
+    void Thread::tryCancel() {
+        pthread_testcancel();
     }
     
     void Thread::wait_until_done(void **ret){
         pthread_join(p_id, ret);
     }
+    
     
     void Thread::keep_going(){
         pthread_detach(p_id);
