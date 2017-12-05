@@ -34,7 +34,6 @@
 		4B70BB7B1FC44B6400E220D3 /* AirThreadLock.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB551FC4496A00E220D3 /* AirThreadLock.h */; };
 		4B70BB7C1FC44B6400E220D3 /* AirThreadPool.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB571FC4496A00E220D3 /* AirThreadPool.h */; };
 		4B70BB7E1FC44C5200E220D3 /* AirOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB7D1FC44C5200E220D3 /* AirOperation.cpp */; };
-		4B70BB831FC44FF200E220D3 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */; };
 		4B9376251FC80FA200D5E3DE /* AirCircleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B9376231FC80FA200D5E3DE /* AirCircleBuffer.cpp */; };
 		4B9376261FC8100500D5E3DE /* AirCircleBuffer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B9376241FC80FA200D5E3DE /* AirCircleBuffer.h */; };
 		4B976B2F1FC5457300540752 /* AirSessionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B976B2D1FC5457300540752 /* AirSessionManager.cpp */; };
@@ -42,7 +41,6 @@
 		4B97E7ED1FCEA126009FA90E /* AirSocketMac.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4B97E7EC1FCEA126009FA90E /* AirSocketMac.hpp */; };
 		4B97E7EF1FCEA126009FA90E /* AirSocketMacPriv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4B97E7EE1FCEA126009FA90E /* AirSocketMacPriv.hpp */; };
 		4B97E7F11FCEA126009FA90E /* AirSocketMac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B97E7F01FCEA126009FA90E /* AirSocketMac.cpp */; };
-		4B97E7F51FCEA16F009FA90E /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */; };
 		4B97E7F61FCEA17D009FA90E /* AirConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB391FC4496A00E220D3 /* AirConnection.cpp */; };
 		4B97E7F71FCEA17D009FA90E /* AirConnectionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB3D1FC4496A00E220D3 /* AirConnectionManager.cpp */; };
 		4B97E7F81FCEA17D009FA90E /* AirConnectionPackageIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB3F1FC4496A00E220D3 /* AirConnectionPackageIO.cpp */; };
@@ -178,8 +176,6 @@
 		4B70BB561FC4496A00E220D3 /* AirThreadPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirThreadPool.cpp; sourceTree = "<group>"; };
 		4B70BB571FC4496A00E220D3 /* AirThreadPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirThreadPool.h; sourceTree = "<group>"; };
 		4B70BB7D1FC44C5200E220D3 /* AirOperation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AirOperation.cpp; sourceTree = "<group>"; };
-		4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
-		4B70BB821FC44FF200E220D3 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		4B9376231FC80FA200D5E3DE /* AirCircleBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AirCircleBuffer.cpp; sourceTree = "<group>"; };
 		4B9376241FC80FA200D5E3DE /* AirCircleBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirCircleBuffer.h; sourceTree = "<group>"; };
 		4B976B2D1FC5457300540752 /* AirSessionManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AirSessionManager.cpp; sourceTree = "<group>"; };
@@ -215,8 +211,6 @@
 		4B70BB381FC4496A00E220D3 /* Socket */ = {
 			isa = PBXGroup;
 			children = (
-				4B70BB811FC44FF200E220D3 /* TPCircularBuffer.c */,
-				4B70BB821FC44FF200E220D3 /* TPCircularBuffer.h */,
 				4B70BB391FC4496A00E220D3 /* AirConnection.cpp */,
 				4B70BB3A1FC4496A00E220D3 /* AirConnection.h */,
 				4B70BB3B1FC4496A00E220D3 /* AirFormatDataIO.h */,
@@ -403,7 +397,6 @@
 				4B97E8011FCEA17D009FA90E /* AirThreadLock.cpp in Sources */,
 				4B97E8001FCEA17D009FA90E /* AirThread.cpp in Sources */,
 				4B97E7F91FCEA17D009FA90E /* AirPackage.cpp in Sources */,
-				4B97E7F51FCEA16F009FA90E /* TPCircularBuffer.c in Sources */,
 				4B97E8021FCEA17D009FA90E /* AirThreadPool.cpp in Sources */,
 				4B97E7FA1FCEA17D009FA90E /* AirServer.cpp in Sources */,
 				4B97E7F11FCEA126009FA90E /* AirSocketMac.cpp in Sources */,
@@ -421,7 +414,6 @@
 				4B70BB7E1FC44C5200E220D3 /* AirOperation.cpp in Sources */,
 				4B70BB601FC4496A00E220D3 /* AirQueue.cpp in Sources */,
 				4B976B2F1FC5457300540752 /* AirSessionManager.cpp in Sources */,
-				4B70BB831FC44FF200E220D3 /* TPCircularBuffer.c in Sources */,
 				4B70BB611FC4496A00E220D3 /* AirThread.cpp in Sources */,
 				4B70BB591FC4496A00E220D3 /* AirConnectionManager.cpp in Sources */,
 				4B70BB581FC4496A00E220D3 /* AirConnection.cpp in Sources */,

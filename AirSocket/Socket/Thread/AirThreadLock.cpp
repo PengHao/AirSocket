@@ -11,8 +11,11 @@
 
 namespace AirCpp {
     
-    int Lock::init(){
-        return pthread_mutex_init(&mutex, NULL);
+    int Lock::init(LockType lockType){
+        pthread_mutexattr_t attr;
+        pthread_mutexattr_init(&attr);
+        pthread_mutexattr_settype(&attr, lockType);
+        return pthread_mutex_init(&mutex, &attr);
     }
     
     int Lock::lock(){

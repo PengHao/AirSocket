@@ -19,12 +19,20 @@
 
 
 namespace AirCpp {
+    
+    typedef enum {
+        LOCK_TYPE_NORMAL = PTHREAD_MUTEX_NORMAL,            //普通
+        LOCK_TYPE_ERRORCHECK = PTHREAD_MUTEX_ERRORCHECK,    //即纠错锁
+        LOCK_TYPE_RECURSIVE = PTHREAD_MUTEX_RECURSIVE,      //互斥锁
+    } LockType;
+    
     class Lock{
     protected:
         
         pthread_mutex_t mutex;
     public:
-        int init();
+        
+        int init(LockType lockType);
         
         int lock();
         

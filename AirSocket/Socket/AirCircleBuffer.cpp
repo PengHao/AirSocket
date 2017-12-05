@@ -10,52 +10,103 @@
 #include "TPCircularBuffer.h"
 
 namespace AirCpp {
-    class TPCircularBufferContainor{
-    public:
-        TPCircularBuffer *m_pTPCircularBuffer;
-    };
-    
-    CircleBuffer::CircleBuffer(int32_t size) :
-    m_iSize(size)
+    CircleBuffer::CircleBuffer(size_t size) :
+    m_llSize(size),
+    m_llAvaliableSize(size)
     {
-        if (m_iSize ==0) {
-            return;
-        }
-        m_pTPCircularBufferContainor = new TPCircularBufferContainor();
-        m_pTPCircularBufferContainor->m_pTPCircularBuffer = (TPCircularBuffer *)calloc(1, sizeof(TPCircularBuffer));
-        TPCircularBufferInit(m_pTPCircularBufferContainor->m_pTPCircularBuffer, m_iSize);
-        TPCircularBufferClear(m_pTPCircularBufferContainor->m_pTPCircularBuffer);
-        TPCircularBufferSetAtomic(m_pTPCircularBufferContainor->m_pTPCircularBuffer, true);
-    };
+        m_pBuffer = (char *)calloc(size, sizeof(char));
+        m_pWrite = m_pBuffer;
+        m_pRead = m_pBuffer;
+        pthread_mutexattr_t attr;
+        pthread_mutexattr_init(&attr);
+        pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+        pthread_mutex_init(&m_mutex, &attr);
+    }
     
-    CircleBuffer* CircleBuffer::Create(int32_t size) {
-        return new CircleBuffer(size);
+    CircleBuffer::~CircleBuffer() {
+        free(m_pBuffer);
+        pthread_mutex_destroy(&m_mutex);
+    }
+    
+    size_t CircleBuffer::_write(const char *pRes, size_t length) {
         
-    }
-    
-    int32_t CircleBuffer::read(char *c_data, int32_t length) {
-        int32_t availableBytes = 0;
-        void *bufferTail = TPCircularBufferTail(m_pTPCircularBufferContainor->m_pTPCircularBuffer, &availableBytes);
-        int32_t readLen  =  length > availableBytes ? availableBytes : length;
-        memcpy(c_data, bufferTail, readLen);
-        TPCircularBufferConsume(m_pTPCircularBufferContainor->m_pTPCircularBuffer, readLen);
-        return readLen;
-    }
-    
-    int32_t CircleBuffer::getWriteAvailableBytesSize() {
-        int32_t availableBytes = 0;
-        TPCircularBufferHead(m_pTPCircularBufferContainor->m_pTPCircularBuffer, &availableBytes);
-        return availableBytes;
-    }
-    
-    int32_t CircleBuffer::write(const char *c_data, int32_t length) {
-        int32_t availableBytes = getWriteAvailableBytesSize();
-        if (availableBytes <= 0) {
+        if (m_llAvaliableSize == 0) {
             return 0;
         }
         
-        int32_t writeLen  =  availableBytes >= length ? length : availableBytes;
-        TPCircularBufferProduceBytes(m_pTPCircularBufferContainor->m_pTPCircularBuffer, c_data, writeLen);
-        return writeLen;
+        if (m_llAvaliableSize < length) {
+            return write(pRes, m_llAvaliableSize);
+        }
+        size_t writedSize = 0;
+        size_t rightEmpty = m_llSize - (m_pWrite - m_pBuffer);
+        if (length > rightEmpty) {
+            writedSize += write(pRes, rightEmpty);
+            length -= writedSize;
+            pRes += writedSize;
+        }
+        memcpy(m_pWrite, pRes, length);
+        m_llAvaliableSize -= length;
+        m_pWrite += length;
+        writedSize += length;
+        if (m_pWrite - m_pBuffer == m_llSize) {
+            m_pWrite = m_pBuffer;
+        }
+        return writedSize;
+    }
+    
+    size_t CircleBuffer::_read(char *res, size_t length) {
+        size_t readAbleSize = m_llSize - m_llAvaliableSize;
+        if (readAbleSize == 0) {
+            return 0;
+        }
+        if (readAbleSize < length) {
+            return read(res, readAbleSize);
+        }
+        size_t readedSize = 0;
+        size_t readRightSize = m_llSize - (m_pRead - m_pBuffer);
+        if (length > readRightSize) {
+            readedSize += read(res, readRightSize);
+            length -= readRightSize;
+            res += readRightSize;
+        }
+        memcpy(res, m_pRead, length);
+        m_llAvaliableSize += length;
+        m_pRead += length;
+        readedSize += length;
+        if (m_pRead - m_pBuffer == m_llSize) {
+            m_pRead = m_pBuffer;
+        }
+        return readedSize;
+    }
+    
+    size_t CircleBuffer::getWriteAvailableBytesSize() {
+        return m_llAvaliableSize;
+    }
+    
+    CircleBuffer *CircleBuffer::Create(size_t length) {
+        return new CircleBuffer(length);
+    }
+    
+    void CircleBuffer::clean() {
+        pthread_mutex_lock(&m_mutex);
+        memset(m_pBuffer, 0, m_llSize);
+        m_pRead = m_pBuffer;
+        m_pWrite = m_pBuffer;
+        m_llAvaliableSize = m_llSize;
+        pthread_mutex_unlock(&m_mutex);
+    }
+    
+    size_t CircleBuffer::write(const char *pRes, size_t length) {
+        pthread_mutex_lock(&m_mutex);
+        size_t writedSize = _write(pRes, length);
+        pthread_mutex_unlock(&m_mutex);
+        return writedSize;
+    }
+    
+    size_t CircleBuffer::read(char *res, size_t length) {
+        pthread_mutex_lock(&m_mutex);
+        size_t readedSize = _read(res, length);
+        pthread_mutex_unlock(&m_mutex);
+        return readedSize;
     }
 }

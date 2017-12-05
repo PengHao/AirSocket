@@ -33,7 +33,7 @@ namespace AirCpp {
     }
     
     Queue::Queue(){
-        mLock.init();
+        mLock.init(LOCK_TYPE_NORMAL);
         m_listOperations.clear();
     };
     

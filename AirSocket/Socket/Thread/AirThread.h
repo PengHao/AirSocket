@@ -42,12 +42,12 @@ namespace AirCpp {
 #define AIR_THREAD_RESUME      0x005  //继续
 #define AIR_THREAD_EXIT        0x006  //退出
     
+    
     class Thread {
     protected:
         pthread_t p_id;
         pthread_cond_t p_cond;
         pthread_mutex_t p_mutex;
-        
         Queue *operation_queue;
 
         static void *_run_loop(void *thread);
@@ -72,7 +72,7 @@ namespace AirCpp {
         
     public:
         
-        Thread() : _cancel(false){ operation_queue = new Queue();};
+        Thread() : _cancel(false) { operation_queue = new Queue();};
         
         ~Thread() ;
         
