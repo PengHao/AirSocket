@@ -7,7 +7,6 @@
 //
 
 #include "AirCircleBuffer.h"
-#include "TPCircularBuffer.h"
 
 namespace AirCpp {
     CircleBuffer::CircleBuffer(size_t size) :
