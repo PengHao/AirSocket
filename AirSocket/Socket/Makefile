@@ -6,14 +6,12 @@ INCLUDE = -I/Users/penghao/Project/github/c++/PCMPlayerServer \
 
 LIB = -L/Users/penghao/Project/github/c++/PCMPlayerServer/lib -lProtocolBuffer -lAirSocket
 
-CFLAG = -std=gnu++11 -stdlib=libc++
+CFLAG = -arch x86_64 -std=gnu++11 -stdlib=libc++
 
 OBJECTS = AirCircleBuffer.o AirConnection.o AirConnectionManager.o AirConnectionPackageIO.o \
 	AirPackage.o AirServer.o AirSession.o AirSessionManager.o AirSocket.o AirOperation.o \
 	AirQueue.o AirThread.o AirThreadLock.o AirThreadPool.o
 
-libAirSocket.a : 
-	ar cr $@ ${OBJECTS}
 
 AirCircleBuffer.o : AirCircleBuffer.cpp
 	${CC} -c ${INCLUDE} ${CFLAG}  AirCircleBuffer.cpp
@@ -58,6 +56,8 @@ AirThreadPool.o : Thread/AirThreadPool.cpp
 	${CC} -c ${INCLUDE} ${CFLAG} Thread/AirThreadPool.cpp
 
 
+libAirSocket.a : ${OBJECTS}
+	ar cr $@ ${OBJECTS}
 
 
 clean :
