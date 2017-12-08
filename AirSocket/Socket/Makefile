@@ -1,6 +1,6 @@
 CC = g++
 
-PRODUCT_INCLUDE = include
+PRODUCT_INCLUDE = AirSocket
 
 INCLUDE_FILES = ./AirConnectionPackageIO.h \
 				./AirSessionManager.h \
@@ -21,15 +21,10 @@ INCLUDE_FILES = ./AirConnectionPackageIO.h \
 				./Thread/AirOperation.h \
 				./Thread/AirQueue.h
 
-INCLUDE = -IPCMPlayerServer \
-	-IPCMPlayerServer/include \
-	-IPCMPlayerServer/Protocol
+INCLUDE = 
+LIB = -lstdc++
 
-LIB = -LPCMPlayerServer/lib \
-	  -lProtocolBuffer \
-	  -lAirSocket
-
-CFLAG = -std=gnu++11 
+CFLAG = -std=c++11 
 
 OBJECTS = AirCircleBuffer.o \
 		  AirConnection.o \
@@ -64,13 +59,14 @@ COMPLIE_FILES = AirConnection.cpp \
 complie : ${CONPLIE_FILES}
 	${CC} -c ${INCLUDE} ${CFLAG} ${COMPLIE_FILES}
 
-libAirSocket.a : complie ${OBJECTS}
+libairsocket.a : complie ${OBJECTS}
 	ar cr $@ ${OBJECTS}
 
-install : libAirSocket.a
+install : libairsocket.a
 	test -d ${PRODUCT_INCLUDE} || mkdir -p ${PRODUCT_INCLUDE}
 	rm -rf ${PRODUCT_INCLUDE}/*
 	tar -cpf - ${INCLUDE_FILES} | ( cd ${PRODUCT_INCLUDE}; tar -xpf - )
-
+	cp -r libairsocket.a /usr/local/lib/
+	cp -r ${PRODUCT_INCLUDE} /usr/local/include/
 clean :
-	rm -rf ${OBJECTS} ${PRODUCT_INCLUDE} libAirSocket.a
+	rm -rf ${OBJECTS} ${PRODUCT_INCLUDE} libairsocket.a
