@@ -20,10 +20,8 @@ namespace AirCpp{
     protected:
         int concurrence_index;
         int func_type;
-        struct {
-            std::function<void()> serial_func;
-            std::function<void(int)> concurrence_func;
-        };
+        std::function<void()> serial_func;
+        std::function<void(int)> concurrence_func;
     public:
         
         Operation(const Operation &op);

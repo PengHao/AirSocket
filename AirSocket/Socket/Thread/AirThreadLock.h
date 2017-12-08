@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <sys/sem.h>
 #include <sys/ipc.h>
-#include <sys/semaphore.h>
+#include <semaphore.h>
 #include <sys/types.h>
 #include <pthread.h>
 
