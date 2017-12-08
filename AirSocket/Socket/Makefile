@@ -29,9 +29,7 @@ LIB = -LPCMPlayerServer/lib \
 	  -lProtocolBuffer \
 	  -lAirSocket
 
-CFLAG = -arch x86_64 \
-		-std=gnu++11 \
-		-stdlib=libc++
+CFLAG = -std=gnu++11 
 
 OBJECTS = AirCircleBuffer.o \
 		  AirConnection.o \

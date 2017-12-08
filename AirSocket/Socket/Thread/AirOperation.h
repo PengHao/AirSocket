@@ -10,7 +10,7 @@
 #define __AirCpp__AirOperation__
 
 #include <iostream>
-
+#include <functional>
 namespace AirCpp{
     /**
      *	多线程的操作，将对象和相应需要进行调用的方法封装到其中

@@ -7,8 +7,8 @@
 //
 
 #include "AirQueue.h"
-#include <pthread/pthread.h>
-#include<unistd.h>
+#include <pthread.h>
+#include <unistd.h>
 #include <signal.h>
 
 namespace AirCpp {

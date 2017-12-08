@@ -7,11 +7,10 @@
 //
 
 #include "AirThread.h"
-
+#include <string.h>
 #include <iostream>
 #include <stdio.h>
 #include <pthread.h>
-#include <pthread/pthread.h>
 #include <unistd.h>
 #include <signal.h>
 #include "AirOperation.h"
