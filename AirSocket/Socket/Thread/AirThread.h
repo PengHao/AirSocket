@@ -25,8 +25,15 @@
 
 #include <iostream>
 #include <stdio.h>
+#ifdef WIN32
+#include <io.h>  
+#include <process.h>  
+#include <windows.h>
+#include <ws2tcpip.h>
+#elif
 #include <pthread.h>
 #include <unistd.h>
+#endif
 #include <signal.h>
 #include "AirOperation.h"
 #include "AirQueue.h"

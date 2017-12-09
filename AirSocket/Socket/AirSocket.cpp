@@ -7,6 +7,8 @@
 //
 
 #include <stdio.h>
+#include <signal.h>
+#include <stdio.h>
 #include "AirSocket.h"
 #include "AirSocketDefine.h"
 namespace AirCpp {
@@ -22,11 +24,15 @@ namespace AirCpp {
     {
         m_pTarget_addr = (sockaddr_in *)malloc(sizeof(sockaddr_in));
         memset(m_pTarget_addr, 0, sizeof(sockaddr_in));
+
+#ifndef  WIN32
         struct sigaction action;
         action.sa_handler = handle_pipe;
         sigemptyset(&action.sa_mask);
         action.sa_flags = 0;
         sigaction(SIGPIPE, &action, NULL);
+
+#endif
     }
     
     Socket::~Socket(){
@@ -50,11 +56,15 @@ namespace AirCpp {
         
         m_pTarget_addr->sin_addr.s_addr = inet_addr(ip_addr);
         m_pTarget_addr->sin_port = htons(port);
-        bzero(&(m_pTarget_addr->sin_zero), 8);
-        
+		memset(&(m_pTarget_addr->sin_zero), 0, 8);
+
         if (0 != ::connect(m_iSocketHandle, (const struct sockaddr *)(m_pTarget_addr), sizeof(const struct sockaddr))) {
             perror("failed to connect socket\n");
-            ::close(m_iSocketHandle);
+#ifdef WIN32
+			_close(m_iSocketHandle);
+#elif
+			::close(m_iSocketHandle);
+#endif // WIN32
             return(-1);                                             /* bind address to socket */
         }
         return 0;
@@ -71,7 +81,11 @@ namespace AirCpp {
         
         if (0 != ::bind(m_iSocketHandle, (const struct sockaddr *)(m_pTarget_addr), sizeof(const struct sockaddr))) {
             perror("failed to bind socket\n");
-            ::close(m_iSocketHandle);
+#ifdef WIN32
+			_close(m_iSocketHandle);
+#elif
+			::close(m_iSocketHandle);
+#endif // WIN32
             return(-1);                                             /* bind address to socket */
         }
         return 0;
@@ -118,7 +132,11 @@ namespace AirCpp {
     }
     
     long long Socket::read(char *c_data, long long length){
-        return (long long)::read(m_iSocketHandle, c_data, length);
+#ifdef WIN32
+		return (long long)_read(m_iSocketHandle, c_data, length);
+#elif
+		return (long long)::read(m_iSocketHandle, c_data, length);
+#endif // WIN32
     }
     
     /**
@@ -126,7 +144,11 @@ namespace AirCpp {
      */
     void Socket::close()
     {
-        ::close(m_iSocketHandle);
+#ifdef WIN32
+		_close(m_iSocketHandle);
+#elif
+		::close(m_iSocketHandle);
+#endif // WIN32
     }
     
     /**
@@ -139,10 +161,10 @@ namespace AirCpp {
     const char * Socket::get_ip(const std::string & _host)
     {
         struct hostent *host = gethostbyname(_host.c_str());
-        if(!host){
-            herror("resolv");
-            return NULL;
-        }
+		if (!host) {
+			perror("resolv");
+			return NULL;
+		}
         struct in_addr **list = (struct in_addr **)host->h_addr_list;
         return inet_ntoa(*list[0]);
     }

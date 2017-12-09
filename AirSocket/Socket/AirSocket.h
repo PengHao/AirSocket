@@ -19,22 +19,29 @@
 //  limitations under the License.
 #ifndef AirCpp_AirBSDSocket_h
 #define AirCpp_AirBSDSocket_h
+#ifdef WIN32
+#include <io.h>  
+#include <process.h>  
+#include <windows.h>
+#include <ws2tcpip.h>
+#elif
 #include <unistd.h>
 #include <arpa/inet.h>
-#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <fcntl.h>
 #include <sys/un.h>
 #include <sys/select.h>
 #include <sys/wait.h>
 #include <netdb.h>
+#endif // WIN32
+
+#include <sys/types.h>
+#include <fcntl.h>
 #include <errno.h>
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <signal.h>
 #include <string>
 namespace AirCpp {

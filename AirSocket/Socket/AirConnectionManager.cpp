@@ -113,7 +113,11 @@ namespace AirCpp {
                     && kvp.second->m_pConnectionObserver != nullptr
                     && kvp.second->m_pConnectionObserver->needObserving(kvp.second)) {
                     FD_SET(kvp.first, &m_ConnSet);
-                    max = std::max(kvp.first, max);
+#ifdef WIN32
+					max = max(kvp.first, max);
+#elif
+					max = std::max(kvp.first, max);
+#endif
                 }
                 if (kvp.second == nullptr || kvp.second->m_pConnectionObserver == nullptr) {
                     needRemoveConnectionHandles.push_back(kvp.first);

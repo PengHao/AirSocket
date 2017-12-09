@@ -34,7 +34,11 @@ namespace AirCpp {
             if (t < 0) { /* get a connection */
                 if (errno == EINTR)             /* EINTR might happen on accept(), */
                 {
-                    sleep(1.0);
+#ifdef WIN32
+					Sleep(1.0);
+#elif
+					sleep(1.0);
+#endif
                     continue;                   /* try again */
                 }
                 else
@@ -48,7 +52,11 @@ namespace AirCpp {
                     mHandle(pConnection);
                 }
             }
-            sleep(1.0);
+#ifdef WIN32
+			Sleep(1.0);
+#elif
+			sleep(1.0);
+#endif
         }
         return 0;
     };

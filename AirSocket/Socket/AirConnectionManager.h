@@ -10,7 +10,11 @@
 #define AirConnectionObserverCenter_h
 
 #include <stdio.h>
+#ifdef WIN32
+#include <time.h>
+#elif
 #include <sys/time.h>
+#endif // WIN32
 #include <map>
 #include <vector>
 #include <exception>

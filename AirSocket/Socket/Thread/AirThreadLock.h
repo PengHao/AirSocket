@@ -10,22 +10,27 @@
 #define AirThreadLock_h
 
 #include <stdio.h>
+#ifdef WIN32
+#include <pthread.h>
+#include <semaphore.h>
+#include <sched.h>
+#elif
 #include <sys/sem.h>
 #include <sys/ipc.h>
-#include <semaphore.h>
-#include <sys/types.h>
+#include <sys/semaphore.h>
 #include <pthread.h>
+#endif // WIN32
 
 
 
 namespace AirCpp {
     
-    typedef enum {
-        LOCK_TYPE_NORMAL = PTHREAD_MUTEX_NORMAL,            //普通
-        LOCK_TYPE_ERRORCHECK = PTHREAD_MUTEX_ERRORCHECK,    //即纠错锁
-        LOCK_TYPE_RECURSIVE = PTHREAD_MUTEX_RECURSIVE,      //互斥锁
-    } LockType;
-    
+	typedef enum {
+		LOCK_TYPE_NORMAL = PTHREAD_MUTEX_NORMAL,
+		LOCK_TYPE_ERRORCHECK = PTHREAD_MUTEX_ERRORCHECK,
+		LOCK_TYPE_RECURSIVE = PTHREAD_MUTEX_RECURSIVE
+	} LockType;
+
     class Lock{
     protected:
         

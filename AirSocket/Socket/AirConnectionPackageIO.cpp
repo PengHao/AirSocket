@@ -25,7 +25,12 @@ namespace AirCpp {
         char *pDataOffset = data;
         if (pCurrentPackage->m_ullFilledSize < sizeofSize) {
             pOffset += pCurrentPackage->m_ullFilledSize;
-            auto s = std::min(sizeofSize - pCurrentPackage->m_ullFilledSize, len);
+
+#ifdef WIN32
+            auto s = min(sizeofSize - pCurrentPackage->m_ullFilledSize, len);
+#elif
+			auto s = std::min(sizeofSize - pCurrentPackage->m_ullFilledSize, len);
+#endif
             memcpy(pOffset, pDataOffset, s);
             pCurrentPackage->m_ullFilledSize += s;
             pDataOffset += s;

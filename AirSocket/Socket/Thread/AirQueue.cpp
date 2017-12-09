@@ -7,9 +7,19 @@
 //
 
 #include "AirQueue.h"
+#include <signal.h>
+#ifdef WIN32
+#include <pthread.h>
+#include <semaphore.h>
+#include <sched.h>
+#include <io.h>  
+#include <process.h>  
+#include <windows.h>
+#include <ws2tcpip.h>
+#elif
 #include <pthread.h>
 #include <unistd.h>
-#include <signal.h>
+#endif // WIN32
 
 namespace AirCpp {
     

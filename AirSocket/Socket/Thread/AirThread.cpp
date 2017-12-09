@@ -11,7 +11,6 @@
 #include <iostream>
 #include <stdio.h>
 #include <pthread.h>
-#include <unistd.h>
 #include <signal.h>
 #include "AirOperation.h"
 #include "AirThreadPool.h"
@@ -59,13 +58,14 @@ namespace AirCpp {
     }
     
     int Thread::init(){
+#ifndef  WIN32
         struct sigaction        actions;
         memset(&actions, 0, sizeof(actions));
         sigemptyset(&actions.sa_mask); /* 将参数set信号集初始化并清空 */
         actions.sa_flags = 0;
         actions.sa_handler = sighand;
         sigaction(AIR_THREAD_EXIT, &actions, nullptr);
-        
+#endif
         pthread_cond_init(&p_cond, NULL);
         pthread_mutex_init(&p_mutex, NULL);
         
@@ -115,7 +115,12 @@ namespace AirCpp {
     void Thread::excute_after(Thread *thread, std::function<void()> _func, float after_delay) {
         Operation* o = new Operation();
         o->init([after_delay]{
-            sleep(after_delay);
+
+#ifdef WIN32
+			Sleep(after_delay);
+#elif
+			sleep(after_delay);
+#endif
         });
         thread->push_operation(o);
         o = new Operation();
