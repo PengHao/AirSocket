@@ -15,13 +15,15 @@ namespace AirCpp {
     }
     
     Session::Session(const Connection *pConnection):
-    m_pConnection(pConnection),
+    m_pBindConnection(pConnection),
     m_llUid(0)
     {
-        
+        m_pLock = new Lock();
+        m_pLock->init(LOCK_TYPE_RECURSIVE);
     }
-    const Connection *Session::getConnection() {
-        return m_pConnection;
+    
+    const Connection *Session::getBindConnection() {
+        return m_pBindConnection;
     }
     
     long long Session::getUid() {
@@ -30,7 +32,7 @@ namespace AirCpp {
     
     Session::~Session(){
         LOG_INFO("delete session");
-
+        delete m_pLock;
     }
 
 }

@@ -15,6 +15,7 @@
 #include "AirConnectionPackageIO.h"
 #include "AirConnectionObserver.h"
 #include "AirConnectionManager.h"
+#include "Thread/AirThreadLock.h"
 namespace AirCpp {
     class Session;
     class SessionManager;
@@ -33,15 +34,23 @@ namespace AirCpp {
     class Session{
         friend SessionManager;
     protected:
+        Lock *m_pLock;
         long long m_llUid;
-        const Connection *m_pConnection;
+        const Connection *m_pBindConnection;
         
+        void lock() {
+            m_pLock->lock();
+        }
+        
+        void unlock() {
+            m_pLock->unlock();
+        }
     public:
         long long getUid();
         
         void setUid(long long uid);
         
-        const Connection *getConnection();
+        const Connection *getBindConnection();
         
         Session(const Connection *pConnection);
         

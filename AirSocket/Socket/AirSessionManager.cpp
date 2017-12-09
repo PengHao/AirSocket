@@ -24,35 +24,68 @@ namespace AirCpp {
     }
     
     inline bool SessionManager::send(Session *pSession, const FormatedData *package) {
-        return pSession->m_pConnection->send(package);
+        if (pSession == nullptr) {
+            return false;
+        }
+        return pSession->m_pBindConnection->send(package);
     }
     
     inline bool SessionManager::read(Session *pSession, ReseivePackageHandler reseiveHandler) {
-        return pSession->m_pConnection->read(reseiveHandler);
+        if (pSession == nullptr) {
+            return false;
+        }
+        return pSession->m_pBindConnection->read(reseiveHandler);
     }
     
     inline void SessionManager::onReadable(const Connection *pConnection) {
-        m_pSessionObserver->onReadable(getSession(pConnection));
+        Session *pSession = getSession(pConnection);
+        if (pSession == nullptr
+            ||pSession->getBindConnection() == nullptr) {
+            return;
+        }
+        pSession->lock();
+        m_pSessionObserver->onReadable(pSession);
+        pSession->unlock();
     }
     
     void SessionManager::onTimeOut(const Connection *pConnection) {
+        if (pConnection == nullptr) {
+            return;
+        }
         m_pSessionObserver->onTimeOut(getSession(pConnection));
     }
     
     void SessionManager::onSendFaild(const Connection *pConnection) {
+        if (pConnection == nullptr) {
+            return;
+        }
         m_pSessionObserver->onSendFaild(getSession(pConnection));
     }
     
     void SessionManager::onReadFaild(const Connection *pConnection) {
+        if (pConnection == nullptr) {
+            return;
+        }
         m_pSessionObserver->onReadFaild(getSession(pConnection));
     }
     
     inline bool SessionManager::needObserving(const Connection *pConnection) {
+        if (pConnection == nullptr) {
+            return false;
+        }
         return m_pSessionObserver->needObserving(getSession(pConnection));
     }
     
     void SessionManager::willBeDestroy(const Connection *pConnection) {
-        m_pSessionObserver->willBeDestroy(getSession(pConnection));
+        Session *pSession = getSession(pConnection);
+        if (pSession == nullptr) {
+            return;
+        }
+        if ( pSession->m_pBindConnection == nullptr) {
+            m_mapSessionMap.erase(pConnection->getHandle());
+            m_pSessionObserver->willBeDestroy(pSession);
+            delete pSession;
+        }
     }
     
     SessionManager::~SessionManager() {
@@ -62,12 +95,19 @@ namespace AirCpp {
     }
     
     void SessionManager::destroySession(Session *pSession) {
-        m_mapSessionMap.erase(pSession->m_pConnection->getHandle());
-        delete pSession;
+        if (pSession == nullptr) {
+            return;
+        }
+        pSession->lock();
+        pSession->m_pBindConnection = nullptr;
+        pSession->unlock();
     }
     
     void SessionManager::addSession(Session *pSession) {
-        m_mapSessionMap[pSession->getConnection()->getHandle()] = pSession;
+        if (pSession == nullptr) {
+            return;
+        }
+        m_mapSessionMap[pSession->getBindConnection()->getHandle()] = pSession;
         m_pSessionObserver->onHandleNewSession(pSession);
     }
     

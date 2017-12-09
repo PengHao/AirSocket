@@ -29,11 +29,17 @@ namespace AirCpp {
     }
     
     void ConnectionManager::destroyConnection(const Connection* connection) {
+        if (connection == nullptr) {
+            return;
+        }
         m_pConnectionObserver->willBeDestroy(connection);
         m_mapConnections[connection->getHandle()]->m_pConnectionObserver = nullptr;
     }
     
     Connection * ConnectionManager::create(Socket *ps) {
+        if (ps == nullptr) {
+            return nullptr;
+        }
         FormatDataIO *pConnectionIO = m_pConnectionIOFactory->create();
         Connection *connection = new Connection(ps, m_pConnectionObserver, pConnectionIO);
         addObserver(connection);

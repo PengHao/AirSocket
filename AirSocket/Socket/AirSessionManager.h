@@ -37,6 +37,9 @@ namespace AirCpp {
         void willBeDestroy(const Connection *pConnection);
         
         Session *getSession(const Connection *pConnection) {
+            if (pConnection == nullptr) {
+                return nullptr;
+            }
             return m_mapSessionMap[pConnection->getHandle()];
         }
     public:
