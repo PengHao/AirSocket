@@ -28,7 +28,7 @@ namespace AirCpp {
 
 #ifdef WIN32
             auto s = min(sizeofSize - pCurrentPackage->m_ullFilledSize, len);
-#elif
+#else
 			auto s = std::min(sizeofSize - pCurrentPackage->m_ullFilledSize, len);
 #endif
             memcpy(pOffset, pDataOffset, s);

@@ -36,7 +36,7 @@ namespace AirCpp {
                 {
 #ifdef WIN32
 					Sleep(1.0);
-#elif
+#else
 					sleep(1.0);
 #endif
                     continue;                   /* try again */
@@ -54,7 +54,7 @@ namespace AirCpp {
             }
 #ifdef WIN32
 			Sleep(1.0);
-#elif
+#else
 			sleep(1.0);
 #endif
         }

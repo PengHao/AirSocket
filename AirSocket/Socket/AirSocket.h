@@ -24,7 +24,7 @@
 #include <process.h>  
 #include <windows.h>
 #include <ws2tcpip.h>
-#elif
+#else
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>

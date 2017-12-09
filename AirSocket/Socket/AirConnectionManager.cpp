@@ -115,7 +115,7 @@ namespace AirCpp {
                     FD_SET(kvp.first, &m_ConnSet);
 #ifdef WIN32
 					max = max(kvp.first, max);
-#elif
+#else
 					max = std::max(kvp.first, max);
 #endif
                 }

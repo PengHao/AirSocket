@@ -62,7 +62,7 @@ namespace AirCpp {
             perror("failed to connect socket\n");
 #ifdef WIN32
 			_close(m_iSocketHandle);
-#elif
+#else
 			::close(m_iSocketHandle);
 #endif // WIN32
             return(-1);                                             /* bind address to socket */
@@ -83,7 +83,7 @@ namespace AirCpp {
             perror("failed to bind socket\n");
 #ifdef WIN32
 			_close(m_iSocketHandle);
-#elif
+#else
 			::close(m_iSocketHandle);
 #endif // WIN32
             return(-1);                                             /* bind address to socket */
@@ -134,7 +134,7 @@ namespace AirCpp {
     long long Socket::read(char *c_data, long long length){
 #ifdef WIN32
 		return (long long)_read(m_iSocketHandle, c_data, length);
-#elif
+#else
 		return (long long)::read(m_iSocketHandle, c_data, length);
 #endif // WIN32
     }
@@ -146,7 +146,7 @@ namespace AirCpp {
     {
 #ifdef WIN32
 		_close(m_iSocketHandle);
-#elif
+#else
 		::close(m_iSocketHandle);
 #endif // WIN32
     }

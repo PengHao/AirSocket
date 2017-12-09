@@ -10,11 +10,12 @@
 #define AirThreadLock_h
 
 #include <stdio.h>
+
 #ifdef WIN32
 #include <pthread.h>
 #include <semaphore.h>
 #include <sched.h>
-#elif
+#else
 #include <sys/sem.h>
 #include <sys/ipc.h>
 #include <sys/semaphore.h>

@@ -118,7 +118,7 @@ namespace AirCpp {
 
 #ifdef WIN32
 			Sleep(after_delay);
-#elif
+#else
 			sleep(after_delay);
 #endif
         });

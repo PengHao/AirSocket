@@ -12,7 +12,7 @@
 #include <stdio.h>
 #ifdef WIN32
 #include <time.h>
-#elif
+#else
 #include <sys/time.h>
 #endif // WIN32
 #include <map>
