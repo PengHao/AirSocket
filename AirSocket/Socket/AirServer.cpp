@@ -35,7 +35,7 @@ namespace AirCpp {
                 if (errno == EINTR)             /* EINTR might happen on accept(), */
                 {
 #ifdef WIN32
-					Sleep(1.0);
+					Sleep(1000.0);
 #else
 					sleep(1.0);
 #endif
@@ -53,7 +53,7 @@ namespace AirCpp {
                 }
             }
 #ifdef WIN32
-			Sleep(1.0);
+			Sleep(1000.0);
 #else
 			sleep(1.0);
 #endif

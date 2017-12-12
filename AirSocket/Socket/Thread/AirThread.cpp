@@ -117,7 +117,7 @@ namespace AirCpp {
         o->init([after_delay]{
 
 #ifdef WIN32
-			Sleep(after_delay);
+			Sleep(after_delay*1000);
 #else
 			sleep(after_delay);
 #endif
