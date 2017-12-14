@@ -18,7 +18,7 @@ namespace AirCpp {
     
     class FormatDataIO {
     public:
-        virtual void fillData(unsigned long long len, char *data, ReseivePackageHandler reseiveHandler) = 0;
+        virtual void fillData(ssize_t len, char *data, ReseivePackageHandler reseiveHandler) = 0;
         virtual ~FormatDataIO(){};
     };
     

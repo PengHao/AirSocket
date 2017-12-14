@@ -11,6 +11,7 @@
 #include "AirSocketDefine.h"
 namespace AirCpp {
     
+    
     ConnectionManager *ConnectionManager::create(ConnectionObserver *pConnectionObserver, ConnectionIOFactory *pConnectionIOFactory) {
         return new ConnectionManager(pConnectionObserver, pConnectionIOFactory);
     }
@@ -32,8 +33,10 @@ namespace AirCpp {
         if (connection == nullptr) {
             return;
         }
-        m_pConnectionObserver->willBeDestroy(connection);
-        m_mapConnections[connection->getHandle()]->m_pConnectionObserver = nullptr;
+        
+        Connection *pConnection = m_mapConnections[connection->getHandle()];
+        m_mapConnections.erase(connection->getHandle());
+        m_pConnectionObserver->willBeDestroy(pConnection);
     }
     
     Connection * ConnectionManager::create(Socket *ps) {
@@ -44,6 +47,13 @@ namespace AirCpp {
         Connection *connection = new Connection(ps, m_pConnectionObserver, pConnectionIO);
         addObserver(connection);
         return connection;
+    }
+    
+    ConnectionManager::~ConnectionManager() {
+        delete m_pThread;
+        for(const auto& kvp : m_mapConnections) {
+            delete kvp.second;
+        }
     }
     
     ConnectionManager::ConnectionManager(ConnectionObserver *pConnectionObserver, ConnectionIOFactory *pConnectionIOFactory) :
@@ -63,9 +73,7 @@ namespace AirCpp {
     }
     
     bool ConnectionManager::addObserver(Connection *pConnection) {
-        if (pConnection->m_pConnectionObserver) {
-            m_mapConnections[pConnection->getHandle()] = pConnection;
-        }
+        m_mapConnections[pConnection->getHandle()] = pConnection;
         return true;
     }
     
@@ -80,7 +88,7 @@ namespace AirCpp {
     void ConnectionManager::selectTimeOut() {
         for (const auto &e : m_ListWillTimeoutConnections) {
             if (m_mapConnections[e]) {
-                m_mapConnections[e]->onTimeOut();
+                m_pConnectionObserver->onTimeOut(m_mapConnections[e]);
             }
         }
     }
@@ -92,11 +100,7 @@ namespace AirCpp {
     void ConnectionManager::selectRead() {
         for(const auto& kvp : m_mapConnections) {
             if(FD_ISSET(kvp.first, &m_ConnSet)) {
-                try {
-                    kvp.second->onReadable();
-                } catch (std::exception &e) {
-                    
-                }
+                m_pConnectionObserver->onReadable(kvp.second);
                 m_ListWillTimeoutConnections.remove(kvp.first);
             }
         }
@@ -116,8 +120,7 @@ namespace AirCpp {
             FD_ZERO(&m_ConnSet);
             for(const auto& kvp : m_mapConnections) {
                 if (kvp.second != nullptr
-                    && kvp.second->m_pConnectionObserver != nullptr
-                    && kvp.second->m_pConnectionObserver->needObserving(kvp.second)) {
+                    && m_pConnectionObserver->needObserving(kvp.second)) {
                     FD_SET(kvp.first, &m_ConnSet);
 #ifdef WIN32
 					max = max(kvp.first, max);
@@ -125,7 +128,7 @@ namespace AirCpp {
 					max = std::max(kvp.first, max);
 #endif
                 }
-                if (kvp.second == nullptr || kvp.second->m_pConnectionObserver == nullptr) {
+                if (kvp.second == nullptr) {
                     needRemoveConnectionHandles.push_back(kvp.first);
                 }
             }

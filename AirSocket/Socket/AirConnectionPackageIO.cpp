@@ -7,6 +7,7 @@
 //
 
 #include <stdio.h>
+#include <math.h>
 #include "AirConnectionPackageIO.h"
 #include "AirFormatDataIO.h"
 #include "AirSocketDefine.h"
@@ -15,43 +16,43 @@ namespace AirCpp {
     pCurrentPackage(nullptr){
     }
     
-    void ConnectionPackageIO::fillData(unsigned long long len, char *data, ReseivePackageHandler reseiveHandler) {
+    void ConnectionPackageIO::fillData(ssize_t len, char *data, ReseivePackageHandler reseiveHandler) {
         if (!pCurrentPackage) {
             pCurrentPackage = new Package();
         }
         
-        unsigned long long sizeofSize = sizeof(pCurrentPackage->m_ullSize);
-        unsigned char *pOffset = (unsigned char *)&pCurrentPackage->m_ullSize;
+        size_t sizeofSize = sizeof(pCurrentPackage->m_ulSize);
+        unsigned char *pOffset = (unsigned char *)&pCurrentPackage->m_ulSize;
         char *pDataOffset = data;
-        if (pCurrentPackage->m_ullFilledSize < sizeofSize) {
-            pOffset += pCurrentPackage->m_ullFilledSize;
+        if (pCurrentPackage->m_ulFilledSize < sizeofSize) {
+            pOffset += pCurrentPackage->m_ulFilledSize;
 
 #ifdef WIN32
-            auto s = min(sizeofSize - pCurrentPackage->m_ullFilledSize, len);
+            size_t s = min(sizeofSize - pCurrentPackage->m_ullFilledSize, len);
 #else
-			auto s = std::min(sizeofSize - pCurrentPackage->m_ullFilledSize, len);
+			size_t s = fmin(sizeofSize - pCurrentPackage->m_ulFilledSize, len);
 #endif
             memcpy(pOffset, pDataOffset, s);
-            pCurrentPackage->m_ullFilledSize += s;
+            pCurrentPackage->m_ulFilledSize += s;
             pDataOffset += s;
             len -= s;
             if (len > 0) {
                 fillData(len, pDataOffset, reseiveHandler);
             }
         } else {
-            if (pCurrentPackage->m_ullSize <= 0) {
+            if (pCurrentPackage->m_ulSize <= 0) {
                 return;
             }
             if (pCurrentPackage->m_pData == nullptr) {
-                pCurrentPackage->m_pData = (unsigned char *)calloc(pCurrentPackage->m_ullSize, sizeof(unsigned char));
+                pCurrentPackage->m_pData = (unsigned char *)calloc(pCurrentPackage->m_ulSize, sizeof(unsigned char));
             }
             pOffset = pCurrentPackage->m_pData;
-            size_t settedDataSize = pCurrentPackage->m_ullFilledSize - sizeofSize;
-            size_t unsetDataSize = pCurrentPackage->m_ullSize - settedDataSize;
+            size_t settedDataSize = pCurrentPackage->m_ulFilledSize - sizeofSize;
+            size_t unsetDataSize = pCurrentPackage->m_ulSize - settedDataSize;
             pOffset += settedDataSize;
             if (unsetDataSize <= len) {
                 memcpy(pOffset, data, unsetDataSize);
-                pCurrentPackage->m_ullFilledSize += unsetDataSize;
+                pCurrentPackage->m_ulFilledSize += unsetDataSize;
                 reseiveHandler(pCurrentPackage);
                 len -= unsetDataSize;
                 pDataOffset += unsetDataSize;
@@ -62,7 +63,7 @@ namespace AirCpp {
                 }
             } else {
                 memcpy(pOffset, data, len);
-                pCurrentPackage->m_ullFilledSize += len;
+                pCurrentPackage->m_ulFilledSize += len;
             }
         }
     }

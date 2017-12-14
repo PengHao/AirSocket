@@ -12,8 +12,8 @@
 namespace AirCpp {
     
     Package::Package():
-    m_ullSize(0),
-    m_ullFilledSize(0),
+    m_ulSize(0),
+    m_ulFilledSize(0),
     m_pData(nullptr) {
         
     }
@@ -21,7 +21,7 @@ namespace AirCpp {
     
     bool Package::getContent(std::string &contentData) const {
         contentData.clear();
-        contentData.append((char *)m_pData, m_ullSize);
+        contentData.append((char *)m_pData, m_ulSize);
         return true;
     }
     
@@ -30,42 +30,42 @@ namespace AirCpp {
             free(m_pData);
             m_pData = nullptr;
         }
-        m_pData = (unsigned char *)calloc(sizeof(char), contentData.size());
+        m_pData = (unsigned char *)calloc(sizeof(unsigned char), contentData.size());
         memcpy(m_pData, contentData.c_str(), contentData.size());
         return true;
     }
     
     bool Package::serial(std::string &serilazeString) const{
         serilazeString.clear();
-        serilazeString.append((char *)&m_ullSize, sizeof(m_ullSize));
-        serilazeString.append((char *)m_pData, m_ullSize);
+        serilazeString.append((char *)&m_ulSize, sizeof(m_ulSize));
+        serilazeString.append((char *)m_pData, m_ulSize);
         return true;
     }
     
     bool Package::deserial(std::string &deserialString) {
         size_t leftSize = deserialString.size();
-        if (leftSize < sizeof(m_ullSize)) {
+        if (leftSize < sizeof(m_ulSize)) {
             return false;
         }
         const char* pData = deserialString.c_str();
-        memcpy(&m_ullSize, pData, sizeof(m_ullSize));
-        leftSize -= sizeof(m_ullSize);
-        if (m_ullSize > leftSize) {
+        memcpy(&m_ulSize, pData, sizeof(m_ulSize));
+        leftSize -= sizeof(m_ulSize);
+        if (m_ulSize > leftSize) {
             LOG_INFO("data broken");
             return false;
         } else {
-            m_pData = (unsigned char *)calloc(sizeof(char), m_ullSize);
-            memcpy(m_pData, pData+sizeof(m_ullSize), m_ullSize);
+            m_pData = (unsigned char *)calloc(sizeof(unsigned char), m_ulSize);
+            memcpy(m_pData, pData+sizeof(m_ulSize), m_ulSize);
         }
         
         return true;
     }
     
     Package::Package(const std::string &data) {
-        m_ullSize = data.size();
-        m_pData = (unsigned char *)calloc(sizeof(char), m_ullSize);
-        memcpy(m_pData, data.c_str(), m_ullSize);
-        m_ullFilledSize = m_ullSize+sizeof(m_ullSize);
+        m_ulSize = data.size();
+        m_pData = (unsigned char *)calloc(sizeof(unsigned char), m_ulSize);
+        memcpy(m_pData, data.c_str(), m_ulSize);
+        m_ulFilledSize = m_ulSize+sizeof(m_ulSize);
     }
     
     Package::~Package() {
@@ -74,7 +74,7 @@ namespace AirCpp {
             free(m_pData);
         }
         m_pData = nullptr;
-        m_ullSize = 0;
+        m_ulSize = 0;
     }
 
 }

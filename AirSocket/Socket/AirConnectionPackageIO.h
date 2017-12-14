@@ -34,7 +34,7 @@ namespace AirCpp {
         
         ~ConnectionPackageIO();
         
-        void fillData(unsigned long long len, char *data, ReseivePackageHandler reseiveHandler);
+        void fillData(ssize_t len, char *data, ReseivePackageHandler reseiveHandler);
         
     };
 }

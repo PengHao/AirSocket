@@ -13,6 +13,7 @@
 #include "AirSocket.h"
 #include "AirSocketConfig.h"
 #include "AirFormatDataIO.h"
+#include "Thread/AirThreadLock.h"
 
 namespace AirCpp{
 #define TEMP_BUFFER_SIZE 1024
@@ -30,8 +31,12 @@ namespace AirCpp{
         int m_iDomainType;
         int m_iDataType;
         int m_iProtocol;
-        ConnectionObserver *m_pConnectionObserver;
+        int m_iPort;
+        std::string m_strHost;
+        bool m_bSupportReconnect;
         FormatDataIO *m_pConnectionIO;
+        Lock *m_pReadLock;
+        Lock *m_pWriteLock;
     protected:
         
         Connection(int domainType, int dataType, int protocol, ConnectionObserver * pConnectionObserver, FormatDataIO *pConnectionIO);
@@ -40,16 +45,10 @@ namespace AirCpp{
         
         int init(const std::string &host, int port);
         
-        void onTimeOut();
-        
-        void onReadable();
-        
-        long long read(char *c_data, long long length) const ;
-        
-        long long send(const char *c_data, long long length) const ;
-        
     public:
         ~Connection();
+        
+        int reconnect();
         
         int getHandle() const ;
         

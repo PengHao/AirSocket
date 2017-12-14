@@ -100,7 +100,6 @@ namespace AirCpp {
         return 0;
     }
     
-    
     int Socket::accept(sockaddr *client_addr, socklen_t *client_size)
     {
         printf("accept connection\n");
@@ -117,26 +116,27 @@ namespace AirCpp {
             return -1;
         }
         m_pTarget_addr->sin_family = domainType;
+        int timeout = 100;
+        setsockopt(m_iSocketHandle, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(int));
+        setsockopt(m_iSocketHandle, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(int));
         return 0;
     }
     
     int Socket::init(const int socket_handle, const struct sockaddr *client_addr, const socklen_t *client_size){
         memcpy(m_pTarget_addr, client_addr, sizeof(sockaddr_in));
         m_iSocketHandle = socket_handle;
+        int timeout = 100;
+        setsockopt(m_iSocketHandle, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(int));
+        setsockopt(m_iSocketHandle, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(int));
         return 0;
     }
     
-    long long Socket::send(const char *c_data, long long length){
-        long long dataSended = (long long)::send(m_iSocketHandle, c_data, length, 0);
-        return dataSended;
+    ssize_t Socket::send(const char *c_data, size_t length){
+        return ::send(m_iSocketHandle, c_data, length, 0);
     }
     
-    long long Socket::read(char *c_data, long long length){
-#ifdef WIN32
-		return (long long)_read(m_iSocketHandle, c_data, length);
-#else
-		return (long long)::read(m_iSocketHandle, c_data, length);
-#endif // WIN32
+    ssize_t Socket::read(char *c_data, size_t length){
+		return recv(m_iSocketHandle, c_data, length, 0);
     }
     
     /**

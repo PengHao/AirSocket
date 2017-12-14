@@ -110,7 +110,7 @@ namespace AirCpp {
         /**
          *	等待线程运行结束
          *
-         *	@param 	*ret 	运行结果
+         *	@param 	ret 	运行结果
          */
         void wait_until_done(void **ret);
         

@@ -66,9 +66,7 @@ namespace AirCpp {
         
         void destroyConnection(const Connection* connection);
         
-        ~ConnectionManager() {
-            
-        }
+        ~ConnectionManager();
         
     };
 }

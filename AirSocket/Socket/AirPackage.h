@@ -25,9 +25,9 @@ namespace AirCpp {
     
     class Package : public FormatedData {
     public:
-        unsigned long long m_ullSize;
+        size_t m_ulSize;
         unsigned char *m_pData;
-        unsigned long long m_ullFilledSize;
+        size_t m_ulFilledSize;
     public:
         Package();
         

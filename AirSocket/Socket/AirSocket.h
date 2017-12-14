@@ -65,21 +65,7 @@ namespace AirCpp {
         Socket( const Socket &s );
         
         
-        /**
-         *	初始化 方法和上面一样
-         *	@param 	domainType 	为创建的套接字指定协议集。 例如：
-         *	AF_INET 表示IPv4网络协议
-         *	AF_INET6 表示IPv6
-         *	AF_UNIX 表示本地套接字（使用一个文件）
-         *	@param 	dataType 	type 如下：
-         *	SOCK_STREAM （可靠的面向流服务或流套接字）
-         *	SOCK_DGRAM （数据报文服务或者数据报文套接字）
-         *	SOCK_SEQPACKET （可靠的连续数据包服务）
-         *	SOCK_RAW (在网络层之上的原始协议)
-         *	@param 	protocol 	protocol 指定实际使用的传输协议。 最常见的就是IPPROTO_TCP、IPPROTO_SCTP、IPPROTO_UDP、IPPROTO_DCCP。这些协议都在<netinet/in.h>中有详细说明。 如果该项为“0”的话，即根据选定的domain和type选择使用缺省协议。
-         *
-         *	@return	创建成功返回0 创建失败返回-1
-         */
+        
         Socket(long timeout = 0);
         
         ~Socket();
@@ -95,13 +81,28 @@ namespace AirCpp {
         
         int accept(sockaddr *client_addr, socklen_t *client_size);
         
+        /**
+         *    初始化 方法和上面一样
+         *    @param     domainType     为创建的套接字指定协议集。 例如：
+         *    AF_INET 表示IPv4网络协议
+         *    AF_INET6 表示IPv6
+         *    AF_UNIX 表示本地套接字（使用一个文件）
+         *    @param     dataType     type 如下：
+         *    SOCK_STREAM （可靠的面向流服务或流套接字）
+         *    SOCK_DGRAM （数据报文服务或者数据报文套接字）
+         *    SOCK_SEQPACKET （可靠的连续数据包服务）
+         *    SOCK_RAW (在网络层之上的原始协议)
+         *    @param     protocol     protocol 指定实际使用的传输协议。 最常见的就是IPPROTO_TCP、IPPROTO_SCTP、IPPROTO_UDP、IPPROTO_DCCP。这些协议都在<netinet/in.h>中有详细说明。 如果该项为“0”的话，即根据选定的domain和type选择使用缺省协议。
+         *
+         *    @return    创建成功返回0 创建失败返回-1
+         */
         int init(int domainType, int dataType, int protocol);
     
         int init(const int socket_handle, const struct sockaddr *client_addr, const socklen_t *client_size);
         
-        long long send(const char *c_data, long long length);
+        ssize_t send(const char *c_data, size_t length);
         
-        long long read(char *c_data, long long length);
+        ssize_t read(char *c_data, size_t length);
         
         /**
          *	关闭连接
