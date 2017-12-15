@@ -18,7 +18,7 @@
 #include "AirConnectionManager.h"
 namespace AirCpp {
     class Connection;
-    typedef std::function<void(const Connection *)> OnHandleConnection;
+    typedef std::function<void(Connection *)> OnHandleConnection;
     class Server {
     protected:
         Thread *m_pListenThread;

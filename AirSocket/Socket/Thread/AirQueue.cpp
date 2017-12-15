@@ -22,6 +22,11 @@
 #endif // WIN32
 
 namespace AirCpp {
+    void Queue::clean() {
+        mLock.lock();
+        m_listOperations.clear();
+        mLock.unlock();
+    }
     
     void Queue::pushOperation(Operation *operation){
         mLock.lock();

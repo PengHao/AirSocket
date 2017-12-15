@@ -14,7 +14,7 @@ namespace AirCpp {
         m_llUid = uid;
     }
     
-    Session::Session(const Connection *pConnection):
+    Session::Session(Connection *pConnection):
     m_pBindConnection(pConnection),
     m_llUid(0)
     {
@@ -22,7 +22,7 @@ namespace AirCpp {
         m_pLock->init(LOCK_TYPE_RECURSIVE);
     }
     
-    const Connection *Session::getBindConnection() {
+    Connection *Session::getBindConnection() {
         return m_pBindConnection;
     }
     

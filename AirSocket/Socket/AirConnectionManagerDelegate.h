@@ -1,13 +1,13 @@
 //
-//  AirConnectionObserver.h
+//  AirConnectionManagerDelegate.h
 //  PCMStramPlayer
 //
 //  Created by peng hao on 2017/11/18.
 //  Copyright © 2017年 peng hao. All rights reserved.
 //
 
-#ifndef AirConnectionObserver_h
-#define AirConnectionObserver_h
+#ifndef AirConnectionManagerDelegate_h
+#define AirConnectionManagerDelegate_h
 
 #include <stdio.h>
 #include <iostream>
@@ -17,7 +17,8 @@
 
 #define TEMP_BUFFER_SIZE 1024
 namespace AirCpp {
-    class ConnectionObserver {
+    class ConnectionManager;
+    class ConnectionManagerDelegate {
     public:
         virtual void onReadable(const Connection *) = 0;
         virtual void onTimeOut(const Connection *) = 0;
@@ -25,6 +26,7 @@ namespace AirCpp {
         virtual void onReadFaild(const Connection *) = 0;
         virtual void willBeDestroy(const Connection *) = 0;
         virtual bool needObserving(const Connection *) = 0;
+        virtual void willBeTerminated(ConnectionManager *) = 0;
     };
 }
-#endif /* AirConnectionObserver_h */
+#endif /* AirConnectionManagerDelegate_h */

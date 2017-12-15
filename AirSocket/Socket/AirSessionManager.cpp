@@ -30,6 +30,10 @@ namespace AirCpp {
         return pSession->m_pBindConnection->send(package);
     }
     
+    void SessionManager::willBeTerminated(ConnectionManager *pConnectionManager) {
+        
+    }
+    
     inline bool SessionManager::read(Session *pSession, ReseivePackageHandler reseiveHandler) {
         if (pSession == nullptr) {
             return false;

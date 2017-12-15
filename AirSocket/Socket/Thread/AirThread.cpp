@@ -36,6 +36,8 @@ namespace AirCpp {
     }
     
     Thread::~Thread() {
+        cancel();
+        delete operation_queue;
         pthread_kill(p_id, AIR_THREAD_EXIT);
     }
     
@@ -73,6 +75,7 @@ namespace AirCpp {
     }
     
     int Thread::cancel(){
+        operation_queue->clean();
         return pthread_cancel(p_id);
     }
     

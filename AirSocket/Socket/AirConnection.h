@@ -15,12 +15,20 @@
 #include "AirFormatDataIO.h"
 #include "Thread/AirThreadLock.h"
 
+
 namespace AirCpp{
 #define TEMP_BUFFER_SIZE 1024
+    typedef enum {
+        CONNECTED = 1,  //connected: connected
+        RECONNECTING = 2,   //reconnecting: will be reconnect
+        DISCONNECTED = 3,   //disconnect: will be destroy
+    } Status;
+    
+    
     class ConnectionManager;
     class Listener;
     class Server;
-    class ConnectionObserver;
+    class ConnectionManagerDelegate;
     class Session;
     class FormatDataIO;
     class Connection {
@@ -33,20 +41,24 @@ namespace AirCpp{
         int m_iProtocol;
         int m_iPort;
         std::string m_strHost;
-        bool m_bSupportReconnect;
         FormatDataIO *m_pConnectionIO;
         Lock *m_pReadLock;
         Lock *m_pWriteLock;
+        Status m_status;
     protected:
         
-        Connection(int domainType, int dataType, int protocol, ConnectionObserver * pConnectionObserver, FormatDataIO *pConnectionIO);
+        Connection(int domainType, int dataType, int protocol, ConnectionManagerDelegate * pConnectionObserver, FormatDataIO *pConnectionIO);
         
-        Connection(Socket *ps, ConnectionObserver * pConnectionObserver, FormatDataIO *pConnectionIO);
+        Connection(Socket *ps, ConnectionManagerDelegate * pConnectionObserver, FormatDataIO *pConnectionIO);
         
         int init(const std::string &host, int port);
         
-    public:
         ~Connection();
+    public:
+        
+        Status getStatus();
+        
+        void setStatus(Status status);
         
         int reconnect();
         

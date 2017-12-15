@@ -37,6 +37,8 @@ namespace AirCpp {
         
     public:
         
+        void clean();
+        
         Queue();
         
         virtual ~Queue();

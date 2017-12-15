@@ -13,7 +13,7 @@
 #include <iostream>
 #include "AirPackage.h"
 #include "AirConnection.h"
-#include "AirConnectionObserver.h"
+#include "AirConnectionManagerDelegate.h"
 
 #define TEMP_BUFFER_SIZE 1024
 namespace AirCpp {

@@ -13,7 +13,7 @@
 #include <map>
 #include "AirConnection.h"
 #include "AirConnectionPackageIO.h"
-#include "AirConnectionObserver.h"
+#include "AirConnectionManagerDelegate.h"
 #include "AirConnectionManager.h"
 #include "Thread/AirThreadLock.h"
 namespace AirCpp {
@@ -36,7 +36,7 @@ namespace AirCpp {
     protected:
         Lock *m_pLock;
         long long m_llUid;
-        const Connection *m_pBindConnection;
+        Connection *m_pBindConnection;
         
         void lock() {
             m_pLock->lock();
@@ -50,9 +50,9 @@ namespace AirCpp {
         
         void setUid(long long uid);
         
-        const Connection *getBindConnection();
+        Connection *getBindConnection();
         
-        Session(const Connection *pConnection);
+        Session(Connection *pConnection);
         
         ~Session();
     };

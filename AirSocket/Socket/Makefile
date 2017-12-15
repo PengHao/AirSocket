@@ -14,7 +14,7 @@ INCLUDE_FILES = ./AirConnectionPackageIO.h \
 				./AirServer.h \
 				./AirSocketDefine.h \
 				./AirSocketConfig.h \
-				./AirConnectionObserver.h \
+				./AirConnectionManagerDelegate.h \
 				./Thread/AirThread.h \
 				./Thread/AirThreadLock.h \
 				./Thread/AirThreadPool.h \

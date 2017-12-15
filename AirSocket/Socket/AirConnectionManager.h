@@ -20,7 +20,7 @@
 #include <exception>
 #include "Thread/AirThread.h"
 #include "AirConnection.h"
-#include "AirConnectionObserver.h"
+#include "AirConnectionManagerDelegate.h"
 
 namespace AirCpp {
     class ConnectionIOFactory;
@@ -33,17 +33,19 @@ namespace AirCpp {
         struct timeval mTimeout;
         struct timeval mDefaultTimeOut;
         
+        bool m_bActivate;
+        
         fd_set m_ConnSet;
         pthread_cond_t p_cond;
         Thread *m_pThread;
         
         int m_iMaxHandle;
         
-        ConnectionObserver *m_pConnectionObserver;
+        ConnectionManagerDelegate *m_pConnectionObserver;
         
         ConnectionIOFactory *m_pConnectionIOFactory;
         
-        ConnectionManager(ConnectionObserver *pConnectionObserver, ConnectionIOFactory *pConnectionIOFactory);
+        ConnectionManager(ConnectionManagerDelegate *pConnectionObserver, ConnectionIOFactory *pConnectionIOFactory);
         
         void resetTimeOut();
         
@@ -55,18 +57,17 @@ namespace AirCpp {
         
         void select();
         
+        virtual ~ConnectionManager();
     public:
-        static ConnectionManager *create(ConnectionObserver *pConnectionObserver, ConnectionIOFactory *pConnectionIOFactory);
+        static ConnectionManager *create(ConnectionManagerDelegate *pConnectionObserver, ConnectionIOFactory *pConnectionIOFactory);
         
         Connection * create(const std::string &host, int port, int domainType = AF_INET, int dataType = SOCK_STREAM, int protocol = IPPROTO_TCP);
         
         Connection * create(Socket *ps);
         
-        bool addObserver(Connection *connection);
-        
         void destroyConnection(const Connection* connection);
         
-        ~ConnectionManager();
+        void terminate(bool needCallBack = false);
         
     };
 }

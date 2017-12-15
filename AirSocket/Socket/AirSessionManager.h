@@ -16,7 +16,7 @@ namespace AirCpp {
     class ConnectionManager;
     class Connection;
     
-    class SessionManager : public ConnectionObserver{
+    class SessionManager : public ConnectionManagerDelegate{
         friend Server;
     private:
         std::map<int, Session *> m_mapSessionMap;
@@ -35,6 +35,8 @@ namespace AirCpp {
         bool needObserving(const Connection *pConnection);
         
         void willBeDestroy(const Connection *pConnection);
+        
+        void willBeTerminated(ConnectionManager *pConnectionManager);
         
         Session *getSession(const Connection *pConnection) {
             if (pConnection == nullptr) {

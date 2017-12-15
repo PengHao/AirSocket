@@ -20,7 +20,7 @@
 		4B70BB631FC4496A00E220D3 /* AirThreadPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B70BB561FC4496A00E220D3 /* AirThreadPool.cpp */; };
 		4B70BB641FC44B0700E220D3 /* AirConnection.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3A1FC4496A00E220D3 /* AirConnection.h */; };
 		4B70BB651FC44B0700E220D3 /* AirFormatDataIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3B1FC4496A00E220D3 /* AirFormatDataIO.h */; };
-		4B70BB661FC44B0700E220D3 /* AirConnectionObserver.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */; };
+		4B70BB661FC44B0700E220D3 /* AirConnectionManagerDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3C1FC4496A00E220D3 /* AirConnectionManagerDelegate.h */; };
 		4B70BB671FC44B0700E220D3 /* AirConnectionManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3E1FC4496A00E220D3 /* AirConnectionManager.h */; };
 		4B70BB681FC44B0700E220D3 /* AirConnectionPackageIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB401FC4496A00E220D3 /* AirConnectionPackageIO.h */; };
 		4B70BB6A1FC44B0700E220D3 /* AirPackage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB441FC4496A00E220D3 /* AirPackage.h */; };
@@ -57,7 +57,7 @@
 		4B97E8031FCEA17D009FA90E /* AirCircleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B9376231FC80FA200D5E3DE /* AirCircleBuffer.cpp */; };
 		4B97E8061FCEA1C4009FA90E /* AirConnection.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3A1FC4496A00E220D3 /* AirConnection.h */; };
 		4B97E8071FCEA1C4009FA90E /* AirFormatDataIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3B1FC4496A00E220D3 /* AirFormatDataIO.h */; };
-		4B97E8081FCEA1C4009FA90E /* AirConnectionObserver.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */; };
+		4B97E8081FCEA1C4009FA90E /* AirConnectionManagerDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3C1FC4496A00E220D3 /* AirConnectionManagerDelegate.h */; };
 		4B97E8091FCEA1C4009FA90E /* AirConnectionManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB3E1FC4496A00E220D3 /* AirConnectionManager.h */; };
 		4B97E80A1FCEA1C4009FA90E /* AirConnectionPackageIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB401FC4496A00E220D3 /* AirConnectionPackageIO.h */; };
 		4B97E80B1FCEA1C4009FA90E /* AirPackage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B70BB441FC4496A00E220D3 /* AirPackage.h */; };
@@ -99,7 +99,7 @@
 				4B97E8171FCEA1EA009FA90E /* AirCircleBuffer.h in CopyFiles */,
 				4B97E8061FCEA1C4009FA90E /* AirConnection.h in CopyFiles */,
 				4B97E8071FCEA1C4009FA90E /* AirFormatDataIO.h in CopyFiles */,
-				4B97E8081FCEA1C4009FA90E /* AirConnectionObserver.h in CopyFiles */,
+				4B97E8081FCEA1C4009FA90E /* AirConnectionManagerDelegate.h in CopyFiles */,
 				4B97E8091FCEA1C4009FA90E /* AirConnectionManager.h in CopyFiles */,
 				4B97E80A1FCEA1C4009FA90E /* AirConnectionPackageIO.h in CopyFiles */,
 				4B97E80B1FCEA1C4009FA90E /* AirPackage.h in CopyFiles */,
@@ -135,7 +135,7 @@
 				4B976B301FC54F9100540752 /* AirSessionManager.h in CopyFiles */,
 				4B70BB641FC44B0700E220D3 /* AirConnection.h in CopyFiles */,
 				4B70BB651FC44B0700E220D3 /* AirFormatDataIO.h in CopyFiles */,
-				4B70BB661FC44B0700E220D3 /* AirConnectionObserver.h in CopyFiles */,
+				4B70BB661FC44B0700E220D3 /* AirConnectionManagerDelegate.h in CopyFiles */,
 				4B70BB671FC44B0700E220D3 /* AirConnectionManager.h in CopyFiles */,
 				4B70BB681FC44B0700E220D3 /* AirConnectionPackageIO.h in CopyFiles */,
 				4B70BB6A1FC44B0700E220D3 /* AirPackage.h in CopyFiles */,
@@ -152,7 +152,7 @@
 		4B70BB391FC4496A00E220D3 /* AirConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnection.cpp; sourceTree = "<group>"; };
 		4B70BB3A1FC4496A00E220D3 /* AirConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnection.h; sourceTree = "<group>"; };
 		4B70BB3B1FC4496A00E220D3 /* AirFormatDataIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirFormatDataIO.h; sourceTree = "<group>"; };
-		4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionObserver.h; sourceTree = "<group>"; };
+		4B70BB3C1FC4496A00E220D3 /* AirConnectionManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionManagerDelegate.h; sourceTree = "<group>"; };
 		4B70BB3D1FC4496A00E220D3 /* AirConnectionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnectionManager.cpp; sourceTree = "<group>"; };
 		4B70BB3E1FC4496A00E220D3 /* AirConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirConnectionManager.h; sourceTree = "<group>"; };
 		4B70BB3F1FC4496A00E220D3 /* AirConnectionPackageIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirConnectionPackageIO.cpp; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 				4B70BB391FC4496A00E220D3 /* AirConnection.cpp */,
 				4B70BB3A1FC4496A00E220D3 /* AirConnection.h */,
 				4B70BB3B1FC4496A00E220D3 /* AirFormatDataIO.h */,
-				4B70BB3C1FC4496A00E220D3 /* AirConnectionObserver.h */,
+				4B70BB3C1FC4496A00E220D3 /* AirConnectionManagerDelegate.h */,
 				4B70BB3D1FC4496A00E220D3 /* AirConnectionManager.cpp */,
 				4B70BB3E1FC4496A00E220D3 /* AirConnectionManager.h */,
 				4B70BB3F1FC4496A00E220D3 /* AirConnectionPackageIO.cpp */,
