@@ -142,7 +142,7 @@ namespace AirCpp {
             }
             
             if (max == 0) {
-                sleep(1);
+                usleep(20000);
                 continue;
             }
             
